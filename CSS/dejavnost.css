@@ -1,0 +1,186 @@
+/*
+//**********************************************************
+// Unikatni stili za podstran Dejavnost (CSS/dejavnost.css)*
+//**********************************************************
+*/
+
+/* // 1. Kombinacija slike in besedila v sklopu delavnice */
+#delavnica {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-lg);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+}
+
+#delavnica-slika-besedilo {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-md);
+    align-items: center;
+    margin-bottom: var(--razmik-lg);
+}
+
+#odstavek-delavnica {
+    font-size: 1.02rem;
+    margin-bottom: 0;
+}
+
+#delavnica-fotografija {
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    overflow: hidden;
+}
+
+#opis-slike-delavnica {
+    padding: var(--razmik-xs) var(--razmik-sm);
+    font-size: 0.84rem;
+    color: var(--barva-besedilo-sekundarno);
+    text-align: center;
+    border-top: 1px solid var(--barva-rob);
+}
+
+/* // Odzivna ASCII skica letala */
+#skica-modela {
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    overflow-x: auto;
+}
+
+#ascii-letalo {
+    font-family: var(--pisava-mono);
+    font-size: clamp(0.68rem, 1.8vw, 0.9rem);
+    color: var(--barva-primarna);
+    line-height: 1.35;
+    margin-bottom: var(--razmik-xs);
+}
+
+#opis-skice {
+    font-size: 0.88rem;
+    color: var(--barva-besedilo-sekundarno);
+    text-align: center;
+}
+
+/* // 2. Oblikovan seznam kategorij RC letal */
+#seznam-kategorij {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-sm);
+}
+
+#kategorija-trainer,
+#kategorija-f5j,
+#kategorija-3d,
+#kategorija-scale {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-left: 4px solid var(--barva-primarna);
+    border-radius: var(--radij-sm);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+    transition: transform var(--prehod), border-color var(--prehod);
+}
+
+#kategorija-trainer:hover,
+#kategorija-f5j:hover,
+#kategorija-3d:hover,
+#kategorija-scale:hover {
+    transform: translateX(6px);
+    border-left-color: var(--barva-sekundarna);
+}
+
+/* // 3. Oblikovan oštevilčen seznam šole letenja */
+#koraki-ucenja {
+    list-style: none;
+    counter-reset: korak-stevec;
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-sm);
+}
+
+#korak-1,
+#korak-2,
+#korak-3,
+#korak-4,
+#korak-5 {
+    counter-increment: korak-stevec;
+    position: relative;
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    padding: var(--razmik-sm) var(--razmik-md) var(--razmik-sm) 3.4rem;
+    transition: transform var(--prehod), border-color var(--prehod);
+}
+
+#korak-1::before,
+#korak-2::before,
+#korak-3::before,
+#korak-4::before,
+#korak-5::before {
+    content: "0" counter(korak-stevec);
+    position: absolute;
+    left: 0.85rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 50%;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-primarna);
+    color: var(--barva-primarna);
+    font-weight: 800;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#korak-1:hover,
+#korak-2:hover,
+#korak-3:hover,
+#korak-4:hover,
+#korak-5:hover {
+    transform: translateX(5px);
+    border-color: var(--barva-primarna);
+}
+
+/* // 4. Varnostna pravila (details harmonika) */
+#varnostna-harmonika {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    margin-bottom: var(--razmik-md);
+}
+
+#varnostni-povzetek {
+    cursor: pointer;
+    color: var(--barva-sekundarna);
+}
+
+#seznam-varnostnih-pravil {
+    margin-top: var(--razmik-sm);
+    padding-left: 1.25rem;
+    color: var(--barva-besedilo-sekundarno);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+@media (min-width: 768px) {
+    #delavnica {
+        padding: var(--razmik-lg);
+    }
+
+    #delavnica-slika-besedilo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #seznam-kategorij {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

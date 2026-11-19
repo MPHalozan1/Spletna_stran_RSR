@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kontaktni podatki in obrazec za vpis ali vprašanja glede RC modelarstva na Ptuju.">
+    <meta name="author" content="Miha Plajnšek">
+    <title>RC Modelarstvo Ptuj – Kontakt</title>
+    <!-- // Skupna CSS datoteka -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- // Unikatna CSS datoteka za podstran Kontakt -->
+    <link rel="stylesheet" href="CSS/kontakt.css">
+</head>
+<body>
+
+    <!--
+    //**********************************************************
+    // Pripeta zgornja vrstica (Sticky Top Bar):               *
+    // Rumeni napis trenutne strani, Pure-CSS DDL meni in tema *
+    //**********************************************************
+    -->
+    <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
+        <div class="vsebnik pripeta-notranjost">
+            <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
+            <span class="znacka-sekcije">&#9992; Stran: <strong>Kontakt in vpis</strong></span>
+
+            <div class="pripeta-kontrole">
+                <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
+                <input type="checkbox" id="meni-ddl-stikalo" class="skrit-checkbox" aria-label="Odpri navigacijski meni">
+                <label for="meni-ddl-stikalo" class="meni-ddl-gumb">
+                    <span class="ddl-tekst">Meni</span>
+                    <span class="ddl-puscica" aria-hidden="true">&#9662;</span>
+                </label>
+
+                <!-- // Pure-CSS Light/Dark stikalo brez JavaScripta -->
+                <div class="tema-preklopnik">
+                    <input type="checkbox" id="tema-stikalo" class="skrit-checkbox" aria-label="Preklopi med temnim in svetlim načinom">
+                    <label for="tema-stikalo" class="tema-oznaka" title="Preklopi svetli / temni način">
+                        <span class="tema-ikona" aria-hidden="true">&#127769;</span>
+                        <span class="tema-ikona" aria-hidden="true">&#9728;&#65039;</span>
+                        <span class="tema-kroglica"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- // Navigacijske povezave (DDL spustni seznam na mobilu, vrstica na namizju) -->
+            <ul class="nav-seznam">
+                <li><a href="index.html">Domov</a></li>
+                <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                <li><a href="kontakt.html" aria-current="page" class="aktiven">Kontakt in vpis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    //**********************************************************
+    // Glava strani z naslovom (se normalno odrola ob drsenju) *
+    //**********************************************************
+    -->
+    <header class="glava-strani">
+        <div class="vsebnik glava-vrstica">
+            <div class="glava-naslovni-del">
+                <h1 id="kontakt-glavni-naslov">&#9992; Kontakt in prijava na preizkusni polet</h1>
+                <p id="kontakt-podnaslov" class="glava-podnaslov"><em>Stopite v stik z vodjo modelarske sekcije ali nam pošljite povpraševanje prek spodnjega obrazca.</em></p>
+            </div>
+        </div>
+    </header>
+
+    <!--
+    //**********************************************************
+    // Glavna vsebina podstrani Kontakt (kontakt.html)         *
+    //**********************************************************
+    -->
+    <main class="vsebnik" id="kontakt-glavna-mreza">
+
+        <!-- // 1. SKLOP: Javni kontaktni podatki -->
+        <section id="kontaktni-podatki">
+            <h2 id="naslov-kontaktni-podatki">1. Javni kontaktni podatki organizatorja</h2>
+            <fieldset id="okvir-uradni-podatki">
+                <legend id="legenda-uradni-podatki"><strong>Uradni podatki društva</strong></legend>
+                <address id="naslov-organizatorja">
+                    <ul id="seznam-kontaktov">
+                        <li id="kontakt-vrstica-org"><strong>Organizacija:</strong> Aeroklub Ptuj – Modelarska sekcija</li>
+                        <li id="kontakt-vrstica-lok"><strong>Lokacija srečanj:</strong> Letališče Moškanjci (Moškanjci 18a, 2272 Gorišnica)</li>
+                        <li id="kontakt-vrstica-mail"><strong>E-pošta sekcije:</strong> <a href="mailto:modelarji@letalisce-ptuj.si" id="povezava-mailto">modelarji@letalisce-ptuj.si</a></li>
+                        <li id="kontakt-vrstica-tel"><strong>Telefon tajništva:</strong> <a href="tel:+38627493650" id="povezava-tel">+386 (0)2 749 36 50</a> (dosegljivi ob sobotah dopoldne)</li>
+                    </ul>
+                </address>
+            </fieldset>
+        </section>
+
+        <!-- // 2. SKLOP: Kontaktni obrazec (brez strežniške obdelave) -->
+        <section id="obrazec-stik">
+            <h2 id="naslov-obrazec">2. Kontaktni obrazec</h2>
+            <p id="navodilo-zvezdica">Polja, označena z zvezdico (<strong>*</strong>), so obvezna za oddajo obrazca.</p>
+
+            <form id="glavni-kontaktni-obrazec" action="#" method="post">
+
+                <fieldset id="sklop-osebni-podatki">
+                    <legend id="legenda-osebni-podatki"><strong>Osebni podatki pošiljatelja</strong></legend>
+                    <table id="tabela-osebni-podatki">
+                        <tbody>
+                            <tr id="vrstica-ime">
+                                <td id="celica-labela-ime"><label for="ime-priimek"><strong>Ime in priimek: *</strong></label></td>
+                                <td id="celica-vnos-ime">
+                                    <input 
+                                        type="text" 
+                                        id="ime-priimek" 
+                                        name="ime_priimek" 
+                                        size="35"
+                                        required 
+                                        minlength="3" 
+                                        maxlength="60" 
+                                        autocomplete="name" 
+                                        placeholder="npr. Janez Novak">
+                                </td>
+                            </tr>
+                            <tr id="vrstica-eposta">
+                                <td id="celica-labela-eposta"><label for="eposta"><strong>E-poštni naslov: *</strong></label></td>
+                                <td id="celica-vnos-eposta">
+                                    <input 
+                                        type="email" 
+                                        id="eposta" 
+                                        name="eposta" 
+                                        size="35"
+                                        required 
+                                        autocomplete="email" 
+                                        placeholder="ime.priimek@primer.si">
+                                </td>
+                            </tr>
+                            <tr id="vrstica-telefon">
+                                <td id="celica-labela-telefon"><label for="telefon"><strong>Telefonska številka:</strong></label></td>
+                                <td id="celica-vnos-telefon">
+                                    <input 
+                                        type="tel" 
+                                        id="telefon" 
+                                        name="telefon" 
+                                        size="35"
+                                        pattern="[0-9+\s\-]{8,15}" 
+                                        autocomplete="tel" 
+                                        placeholder="041 123 456 (neobvezno)">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+
+                <fieldset id="sklop-podrobnosti-povprasevanja">
+                    <legend id="legenda-podrobnosti"><strong>Podrobnosti vašega povpraševanja</strong></legend>
+
+                    <p id="odstavek-razlog">
+                        <label for="razlog-stika" id="labela-razlog"><strong>Razlog za stik: *</strong></label>
+                        <select id="razlog-stika" name="razlog_stika" required>
+                            <option value="" disabled selected>-- Izberite razlog za stik --</option>
+                            <option value="vpis_v_sekcijo">Vpis v modelarsko sekcijo</option>
+                            <option value="preizkusni_polet">Prijava na preizkusni polet z mentorjem</option>
+                            <option value="tehnicna_pomoc">Tehnično vprašanje glede gradnje RC letala</option>
+                            <option value="obisk_dogodka">Najava skupinskega ogleda na letališču</option>
+                            <option value="drugo">Drugo</option>
+                        </select>
+                    </p>
+
+                    <div id="odstavek-izkusnje">
+                        <p id="naslov-izkusnje"><strong>Vaše dosedanje izkušnje z RC letali:</strong></p>
+                        <label for="izkusnje-brez" class="izbira-vrstica">
+                            <input type="radio" id="izkusnje-brez" name="izkusnje" value="zacetnik" checked>
+                            <span>Popoln začetnik (brez izkušenj)</span>
+                        </label>
+
+                        <label for="izkusnje-srednje" class="izbira-vrstica">
+                            <input type="radio" id="izkusnje-srednje" name="izkusnje" value="osnovno">
+                            <span>Letim na simulatorju ali z manjšimi modeli</span>
+                        </label>
+
+                        <label for="izkusnje-izkusen" class="izbira-vrstica">
+                            <input type="radio" id="izkusnje-izkusen" name="izkusnje" value="izkusen">
+                            <span>Samostojen pilot z lastnim modelom</span>
+                        </label>
+                    </div>
+
+                    <p id="odstavek-sporocilo">
+                        <label for="sporocilo" id="labela-sporocilo"><strong>Vaše sporočilo ali vprašanje: *</strong></label>
+                        <textarea 
+                            id="sporocilo" 
+                            name="sporocilo" 
+                            rows="6" 
+                            cols="60" 
+                            required 
+                            minlength="15" 
+                            maxlength="1000" 
+                            placeholder="Napišite vaše vprašanje, želeni termin obiska ali tip modela, ki vas zanima..."></textarea>
+                    </p>
+
+                    <p id="odstavek-soglasje">
+                        <label for="soglasje" class="izbira-vrstica">
+                            <input type="checkbox" id="soglasje" name="soglasje_kontakt" value="da" required>
+                            <span>Soglašam z uporabo vpisanih podatkov izključno za namen odgovora na moje sporočilo. *</span>
+                        </label>
+                    </p>
+                </fieldset>
+
+                <p id="sklop-gumbov-obrazca">
+                    <button type="submit" id="gumb-oddaj" class="gumb-primarni"><strong>Pošlji sporočilo</strong></button>
+                    <button type="reset" id="gumb-pocisti" class="gumb-sekundarni">Počisti vnosna polja</button>
+                </p>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!--
+    //**********************************************************
+    // Noga spletne strani s spodnjo (footer) navigacijo       *
+    //**********************************************************
+    -->
+    <footer class="noga-strani">
+        <div class="vsebnik noga-notranjost">
+            <nav class="noga-navigacija" aria-label="Spodnja navigacija">
+                <ul class="noga-seznam">
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                    <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                    <li><a href="kontakt.html" aria-current="page" class="aktiven">Kontakt in vpis</a></li>
+                </ul>
+            </nav>
+            <p class="noga-avtorske">
+                <small>&copy; 2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="index.html">&larr; Nazaj na domačo stran</a></small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+/*
+//**********************************************************
+// Unikatni stili za vstopno stran (CSS/index.css)         *
+// Vsi unikatni elementi uporabljajo ID selektorje         *
+//**********************************************************
+*/
+
+/* // 1. Uvodno območje (Hero), citat, CTA gumbi in fotografija */
+#o-nas {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-lg);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+}
+
+#uvodni-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-lg);
+    align-items: center;
+}
+
+#citat-o-nas {
+    background: var(--barva-povrsina);
+    border-left: 4px solid var(--barva-primarna);
+    padding: var(--razmik-md);
+    border-radius: 0 var(--radij-sm) var(--radij-sm) 0;
+    margin-bottom: var(--razmik-md);
+}
+
+#odstavek-o-nas {
+    margin-bottom: 0;
+    font-size: 1.02rem;
+}
+
+#uvodni-cta-sklop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--razmik-sm);
+}
+
+#domov-fotografija {
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    overflow: hidden;
+    transition: transform var(--prehod), border-color var(--prehod);
+}
+
+#domov-fotografija:hover {
+    transform: translateY(-4px);
+    border-color: var(--barva-primarna);
+}
+
+#slika-letalisce {
+    width: 100%;
+    object-fit: cover;
+}
+
+#opis-slike-domov {
+    padding: var(--razmik-xs) var(--razmik-sm);
+    font-size: 0.85rem;
+    color: var(--barva-besedilo-sekundarno);
+    text-align: center;
+    border-top: 1px solid var(--barva-rob);
+}
+
+/* // 2. CSS Grid postavitev za 3 ciljne skupine */
+#ciljne-skupine-mreza {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-md);
+    margin-top: var(--razmik-md);
+}
+
+#kartica-zacetniki,
+#kartica-dijaki,
+#kartica-izkuseni {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+    transition: transform var(--prehod), border-color var(--prehod);
+    display: flex;
+    flex-direction: column;
+}
+
+#kartica-zacetniki:hover,
+#kartica-dijaki:hover,
+#kartica-izkuseni:hover {
+    transform: translateY(-6px);
+    border-color: var(--barva-primarna);
+}
+
+.kartica-stopnja {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--barva-sekundarna);
+    margin-bottom: var(--razmik-xs);
+}
+
+#besedilo-zacetniki,
+#besedilo-dijaki,
+#besedilo-izkuseni {
+    margin-bottom: 0;
+}
+
+/* // 3. Sklop hitrih povezav (#povabilo) */
+#seznam-povabilo {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-xs);
+}
+
+#povezava-element-1,
+#povezava-element-2,
+#povezava-element-3 {
+    padding: 0.65rem 0.9rem;
+    background: var(--barva-povrsina);
+    border-radius: var(--radij-sm);
+    border-left: 3px solid var(--barva-sekundarna);
+    transition: transform var(--prehod);
+}
+
+#povezava-element-1:hover,
+#povezava-element-2:hover,
+#povezava-element-3:hover {
+    transform: translateX(6px);
+}
+
+/* // Odzivne prilagoditve za tablice in namizne zaslone */
+@media (min-width: 768px) {
+    #o-nas {
+        padding: var(--razmik-lg);
+    }
+
+    #ciljne-skupine-mreza {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    #uvodni-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+    }
+}

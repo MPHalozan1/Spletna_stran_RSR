@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Predstavitev Modelarske sekcije Aerokluba Ptuj. Gradnja in letenje z radijsko vodenimi (RC) letali na letališču Moškanjci.">
+    <meta name="author" content="Miha Plajnšek">
+    <title>RC Modelarstvo Ptuj - Predstavitev</title>
+    <!-- // Skupna CSS datoteka za celotno spletno stran -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- // Unikatna CSS datoteka za vstopno stran -->
+    <link rel="stylesheet" href="CSS/index.css">
+</head>
+<body>
+
+    <!--
+    //**********************************************************
+    // Pripeta zgornja vrstica (Sticky Top Bar):               *
+    // Rumeni napis trenutne strani, Pure-CSS DDL meni in tema *
+    //**********************************************************
+    -->
+    <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
+        <div class="vsebnik pripeta-notranjost">
+            <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
+            <span class="znacka-sekcije">Stran: <strong>Domov</strong></span>
+
+            <div class="pripeta-kontrole">
+                <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
+                <input type="checkbox" id="meni-ddl-stikalo" class="skrit-checkbox" aria-label="Odpri navigacijski meni">
+                <label for="meni-ddl-stikalo" class="meni-ddl-gumb">
+                    <span class="ddl-tekst">Meni</span>
+                    <span class="ddl-puscica" aria-hidden="true"></span>
+                </label>
+
+                <!-- // Pure-CSS Light/Dark stikalo brez JavaScripta -->
+                <div class="tema-preklopnik">
+                    <input type="checkbox" id="tema-stikalo" class="skrit-checkbox" aria-label="Preklopi med temnim in svetlim načinom">
+                    <label for="tema-stikalo" class="tema-oznaka" title="Preklopi svetli / temni način">
+                        <span class="tema-ikona" aria-hidden="true"></span>
+                        <span class="tema-ikona" aria-hidden="true"></span>
+                        <span class="tema-kroglica"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- // Navigacijske povezave (DDL spustni seznam na mobilu, vrstica na namizju) -->
+            <ul class="nav-seznam">
+                <li><a href="index.html" aria-current="page" class="aktiven">Domov</a></li>
+                <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                <li><a href="kontakt.html">Kontakt in vpis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    //**********************************************************
+    // Glava strani z naslovom (se normalno odrola ob drsenju) *
+    //**********************************************************
+    -->
+    <header class="glava-strani">
+        <div class="vsebnik glava-vrstica">
+            <div class="glava-naslovni-del">
+                <h1 id="domov-glavni-naslov">Modelarska sekcija Aerokluba Ptuj - RC Letala</h1>
+                <p id="domov-podnaslov" class="glava-podnaslov"><em>Lokalna skupnost ljubiteljev gradnje in letenja z radijsko vodenimi letalskimi modeli v Spodnjem Podravju in Halozah.</em></p>
+            </div>
+        </div>
+    </header>
+
+    <!--
+    //**********************************************************
+    // Glavna vsebina vstopne strani (index.html)              *
+    //**********************************************************
+    -->
+    <main class="vsebnik">
+
+        <!-- // 1. SKLOP: Prepoznavno uvodno območje (Hero), CTA in urejena fotografija -->
+        <section id="o-nas">
+            <div id="uvodni-grid">
+                <div id="uvodni-tekst">
+                    <h2 id="naslov-o-nas">1. Kdo smo in kaj počnemo?</h2>
+                    <blockquote id="citat-o-nas">
+                        <p id="odstavek-o-nas">
+                            Modelarska sekcija deluje v okviru <strong>Aerokluba Ptuj</strong> na športnem letališču v Moškanjcih. 
+                            Združujemo navdušence nad letalskim modelarstvom, aerodinamiko, elektroniko in mehaniko. 
+                            Naš glavni namen je ohranjanje tehnične kulture, prenos znanja na mlajše generacije ter varno 
+                            izvajanje letenja z radijsko vodenimi (RC) modeli letal in jadralnih modelov.
+                        </p>
+                    </blockquote>
+
+                    <!-- // Jasen glavni poziv k dejanju (CTA) -->
+                    <div id="uvodni-cta-sklop">
+                        <a href="kontakt.html" id="glavni-cta-gumb" class="gumb-primarni">Prijava na preizkusni polet</a>
+                        <a href="dejavnost.html" id="sekundarni-cta-gumb" class="gumb-sekundarni">Razišči delavnice in modele</a>
+                    </div>
+                </div>
+
+                <!-- // Urejena prilagodljiva fotografija (vektorska grafika steze in RC letala) -->
+                <figure id="domov-fotografija">
+                    <img 
+                        id="slika-letalisce" 
+                        src="Slike/aeroklub.jpg" 
+                        alt="Prikaz vzletno-pristajalne steze letališča Moškanjci">
+                    <figcaption id="opis-slike-domov">
+                        Vzletno-pristajalna steza modelarske sekcije na športnem letališču Moškanjci pri Ptuju.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- // 2. SKLOP: Komu je dejavnost namenjena (CSS Grid postavitev kartic) -->
+        <section id="komu-je-namenjeno">
+            <h2 id="naslov-skupine">2. Komu je dejavnost namenjena?</h2>
+            <p id="opis-skupine">Naša vrata so odprta vsem generacijam iz Ptuja, Haloz in širše okolice, ne glede na predznanje:</p>
+
+            <div id="ciljne-skupine-mreza">
+                <article id="kartica-zacetniki">
+                    <span id="znacka-zacetniki" class="kartica-stopnja">01 / Osnovni nivo</span>
+                    <h3 id="naslov-zacetniki">Začetniki in osnovnošolci</h3>
+                    <p id="besedilo-zacetniki">
+                        Mladi tehnični navdušenci se pri nas naučijo osnov obdelave lesa (balze), branja načrtov 
+                        in prvih korakov upravljanja šolskih RC modelov prek sistema dvojnih komand (učitelj-učenec).
+                    </p>
+                </article>
+
+                <article id="kartica-dijaki">
+                    <span id="znacka-dijaki" class="kartica-stopnja">02 / Tehnični razvoj</span>
+                    <h3 id="naslov-dijaki">Dijaki, študenti in elektroniki</h3>
+                    <p id="besedilo-dijaki">
+                        Za vse, ki želijo povezati znanje elektrotehnike, mikrokrmilnikov, telemetrije in 3D-tiska 
+                        z dejanskim preizkušanjem modelov na terenu.
+                    </p>
+                </article>
+
+                <article id="kartica-izkuseni">
+                    <span id="znacka-izkuseni" class="kartica-stopnja">03 / Tekmovalni nivo</span>
+                    <h3 id="naslov-izkuseni">Izkušeni piloti in tekmovalci</h3>
+                    <p id="besedilo-izkuseni">
+                        Člani z lastnimi modeli pridobijo dostop do urejene in pokošene vzletno-pristajalne steze, 
+                        registriranega modelarskega območja ter družbe kolegov v kategorijah F5J in F3A.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- // 3. SKLOP: Spoznajte naše delo podrobneje (Hitre povezave) -->
+        <section id="povabilo">
+            <h2 id="naslov-povabilo">3. Spoznajte naše delo podrobneje</h2>
+            <fieldset id="okvir-povabilo">
+                <legend id="legenda-povabilo"><strong>Hitre povezave do pomembnih informacij</strong></legend>
+                <ul id="seznam-povabilo">
+                    <li id="povezava-element-1">Preberite več o tem, kako poteka <a href="dejavnost.html" id="povezava-dejavnost">gradnja modelov in šola letenja</a>.</li>
+                    <li id="povezava-element-2">Oglejte si <a href="informacije.html" id="povezava-informacije">tedenski urnik srečanj, lokacijo steze in cenik članarine</a>.</li>
+                    <li id="povezava-element-3">Imate vprašanje ali želite preizkusni polet? <a href="kontakt.html" id="povezava-kontakt">Pišite nam prek kontaktnega obrazca</a>.</li>
+                </ul>
+            </fieldset>
+        </section>
+
+    </main>
+
+    <!--
+    //**********************************************************
+    // Noga spletne strani s spodnjo (footer) navigacijo       *
+    //**********************************************************
+    -->
+    <footer class="noga-strani">
+        <div class="vsebnik noga-notranjost">
+            <nav class="noga-navigacija" aria-label="Spodnja navigacija">
+                <ul class="noga-seznam">
+                    <li><a href="index.html" aria-current="page" class="aktiven">Domov</a></li>
+                    <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                    <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                    <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                </ul>
+            </nav>
+            <p class="noga-avtorske">
+                <small>2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="kontakt.html">Stopite v stik z nami</a></small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

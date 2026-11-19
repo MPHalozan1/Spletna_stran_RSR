@@ -1,0 +1,108 @@
+/*
+//**********************************************************
+// Unikatni stili za podstran Informacije                  *
+// Datoteka: CSS/informacije.css                           *
+//**********************************************************
+*/
+
+/* // Oblikovanje tabel (urnik in cenik članarine) */
+#tabela-urnik,
+#tabela-clanarina {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 580px;
+    text-align: left;
+}
+
+#naslov-tabele-urnik,
+#naslov-tabele-clanarina {
+    padding: var(--razmik-sm) var(--razmik-md);
+    background: var(--barva-povrsina);
+    color: var(--barva-primarna);
+    text-align: left;
+    border-bottom: 1px solid var(--barva-rob);
+    font-size: 0.95rem;
+}
+
+#glava-tabele-urnik th,
+#glava-tabele-clanarina th {
+    background: var(--barva-povrsina);
+    color: var(--barva-besedilo);
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.9rem var(--razmik-md);
+    border-bottom: 2px solid var(--barva-primarna);
+}
+
+#telo-tabele-urnik td,
+#telo-tabele-clanarina td {
+    padding: 0.9rem var(--razmik-md);
+    border-bottom: 1px solid var(--barva-rob);
+    color: var(--barva-besedilo-sekundarno);
+}
+
+#telo-tabele-urnik tr:hover,
+#telo-tabele-clanarina tr:hover {
+    background: rgba(56, 189, 248, 0.06);
+}
+
+#noga-tabele-urnik td {
+    padding: 0.85rem var(--razmik-md);
+    background: var(--barva-povrsina);
+    color: var(--barva-besedilo-sekundarno);
+    font-size: 0.88rem;
+}
+
+/* // Vizualno izstopajoči pomembni podatki v tabelah */
+.poudarjen-dan {
+    color: var(--barva-primarna);
+}
+
+.ura-znacka {
+    display: inline-block;
+    font-family: var(--pisava-mono);
+    font-size: 0.84rem;
+    font-weight: 600;
+    color: var(--barva-besedilo);
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    padding: 0.18rem 0.55rem;
+    border-radius: var(--radij-sm);
+}
+
+.poudarjena-cena {
+    display: inline-block;
+    font-size: 1.05rem;
+    color: var(--barva-sekundarna);
+    background: rgba(245, 158, 11, 0.12);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+}
+
+/* // Sklop lokacije in varnostnega opozorila */
+#naslov-letalisce {
+    font-style: normal;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-left: 4px solid var(--barva-primarna);
+    border-radius: var(--radij-sm);
+    padding: var(--razmik-md);
+    margin-bottom: var(--razmik-md);
+    color: var(--barva-besedilo-sekundarno);
+}
+
+#varnostno-opozorilo-okvir {
+    background: rgba(245, 158, 11, 0.1);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+    border-left: 4px solid var(--barva-sekundarna);
+    border-radius: var(--radij-sm);
+    padding: var(--razmik-md);
+}
+
+#varnostno-opozorilo-tekst {
+    margin-bottom: 0;
+    color: var(--barva-besedilo);
+}

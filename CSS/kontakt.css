@@ -1,0 +1,163 @@
+/*
+//**********************************************************
+// Unikatni stili za podstran Kontakt (CSS/kontakt.css)    *
+// Dosledno oblikovana polja, oznake in stanje fokusa      *
+//**********************************************************
+*/
+
+#kontakt-glavna-mreza {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-xl);
+}
+
+/* // 1. Seznam uradnih kontaktnih podatkov */
+#naslov-organizatorja {
+    font-style: normal;
+}
+
+#seznam-kontaktov {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-sm);
+}
+
+#kontakt-vrstica-org,
+#kontakt-vrstica-lok,
+#kontakt-vrstica-mail,
+#kontakt-vrstica-tel {
+    padding: 0.75rem 1rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    color: var(--barva-besedilo-sekundarno);
+}
+
+/* // 2. Kontaktni obrazec in vnosna polja */
+#glavni-kontaktni-obrazec {
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-lg);
+}
+
+#tabela-osebni-podatki {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* // Mobile-first: na ozkih zaslonih so oznake nad vnosnimi polji */
+#tabela-osebni-podatki tr {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: var(--razmik-md);
+}
+
+#tabela-osebni-podatki tr:last-child {
+    margin-bottom: 0;
+}
+
+#tabela-osebni-podatki td {
+    display: block;
+    text-align: left;
+}
+
+#ime-priimek,
+#eposta,
+#telefon,
+#razlog-stika,
+#sporocilo {
+    width: 100%;
+    padding: 0.78rem 1rem;
+    font-family: var(--pisava-osnovna);
+    font-size: 0.95rem;
+    color: var(--barva-besedilo);
+    background-color: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    transition: border-color var(--prehod), box-shadow var(--prehod), background-color var(--prehod);
+}
+
+#sporocilo {
+    resize: vertical;
+    min-height: 140px;
+}
+
+/* // Jasno vidno stanje fokusa (:focus in :focus-visible) */
+#ime-priimek:focus,
+#eposta:focus,
+#telefon:focus,
+#razlog-stika:focus,
+#sporocilo:focus {
+    outline: none;
+    border-color: var(--barva-primarna);
+    box-shadow: 0 0 0 4px var(--barva-fokus);
+}
+
+#labela-razlog,
+#labela-sporocilo,
+#naslov-izkusnje {
+    display: block;
+    margin-bottom: 0.45rem;
+}
+
+/* // Radio gumbi in potrditveno polje */
+#odstavek-izkusnje {
+    margin-bottom: var(--razmik-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.izbira-vrstica {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.6rem 0.85rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    cursor: pointer;
+    color: var(--barva-besedilo-sekundarno);
+    transition: border-color var(--prehod);
+}
+
+.izbira-vrstica:hover {
+    border-color: var(--barva-primarna);
+}
+
+.izbira-vrstica input[type="radio"],
+.izbira-vrstica input[type="checkbox"] {
+    accent-color: var(--barva-primarna);
+    width: 1.1rem;
+    height: 1.1rem;
+    cursor: pointer;
+}
+
+.izbira-vrstica input:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 2px;
+}
+
+#sklop-gumbov-obrazca {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--razmik-sm);
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    #tabela-osebni-podatki tr {
+        display: grid;
+        grid-template-columns: 210px 1fr;
+        align-items: center;
+        gap: var(--razmik-md);
+    }
+
+    #celica-labela-ime,
+    #celica-labela-eposta,
+    #celica-labela-telefon {
+        text-align: right;
+    }
+}

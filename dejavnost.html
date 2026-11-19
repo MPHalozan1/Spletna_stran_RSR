@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Podrobna predstavitev dejavnosti RC modelarstva: kategorije letal, potek delavnic in varnostna pravila letenja.">
+    <meta name="author" content="Miha Plajnšek">
+    <title>RC Modelarstvo Ptuj – Podrobnosti o dejavnosti</title>
+    <!-- // Skupna CSS datoteka -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- // Unikatna CSS datoteka za podstran Dejavnost -->
+    <link rel="stylesheet" href="CSS/dejavnost.css">
+</head>
+<body>
+
+    <!--
+    //**********************************************************
+    // Pripeta zgornja vrstica (Sticky Top Bar):               *
+    // Rumeni napis trenutne strani, Pure-CSS DDL meni in tema *
+    //**********************************************************
+    -->
+    <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
+        <div class="vsebnik pripeta-notranjost">
+            <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
+            <span class="znacka-sekcije">Stran: <strong>Podrobnosti o dejavnosti</strong></span>
+
+            <div class="pripeta-kontrole">
+                <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
+                <input type="checkbox" id="meni-ddl-stikalo" class="skrit-checkbox" aria-label="Odpri navigacijski meni">
+                <label for="meni-ddl-stikalo" class="meni-ddl-gumb">
+                    <span class="ddl-tekst">Meni</span>
+                    <span class="ddl-puscica" aria-hidden="true"></span>
+                </label>
+
+                <!-- // Pure-CSS Light/Dark stikalo brez JavaScripta -->
+                <div class="tema-preklopnik">
+                    <input type="checkbox" id="tema-stikalo" class="skrit-checkbox" aria-label="Preklopi med temnim in svetlim načinom">
+                    <label for="tema-stikalo" class="tema-oznaka" title="Preklopi svetli / temni način">
+                        <span class="tema-ikona" aria-hidden="true"></span>
+                        <span class="tema-ikona" aria-hidden="true"></span>
+                        <span class="tema-kroglica"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- // Navigacijske povezave (DDL spustni seznam na mobilu, vrstica na namizju) -->
+            <ul class="nav-seznam">
+                <li><a href="index.html">Domov</a></li>
+                <li><a href="dejavnost.html" aria-current="page" class="aktiven">Podrobnosti o dejavnosti</a></li>
+                <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                <li><a href="kontakt.html">Kontakt in vpis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    //**********************************************************
+    // Glava strani z naslovom (se normalno odrola ob drsenju) *
+    //**********************************************************
+    -->
+    <header class="glava-strani">
+        <div class="vsebnik glava-vrstica">
+            <div class="glava-naslovni-del">
+                <h1 id="dejavnost-glavni-naslov">Podrobnosti o dejavnosti: Od načrta do poleta</h1>
+                <p id="dejavnost-podnaslov" class="glava-podnaslov"><em>Spoznajte tehnični in praktični del radijsko vodenega letalskega modelarstva.</em></p>
+            </div>
+        </div>
+    </header>
+
+    <!--
+    //**********************************************************
+    // Glavna vsebina podstrani Dejavnost (dejavnost.html)     *
+    //**********************************************************
+    -->
+    <main class="vsebnik">
+
+        <!-- // 1. SKLOP: Kombinacija slike in besedila + tehnična skica -->
+        <section id="delavnica">
+            <h2 id="naslov-delavnica">1. Zimska gradnja in tehnične delavnice</h2>
+
+            <div id="delavnica-slika-besedilo">
+                <div id="delavnica-opisni-del">
+                    <p id="odstavek-delavnica">
+                        Ko vremenske razmere v jesenskih in zimskih mesecih ne dopuščajo rednega letenja na prostem, 
+                        se naše delo preseli v klubsko delavnico. Tam člani gradimo nove modele iz balze in kompozitov, 
+                        popravljamo poškodbe ter nastavljamo radijske postaje in krmilnike obratov (ESC).
+                    </p>
+                </div>
+
+                <figure id="delavnica-fotografija">
+                    <img 
+                        id="slika-delavnica" 
+                        src="Slike/rc-plane.webp" 
+                        alt=" [ Propeler in brezkrtačni motor ]
+                                       |
+                                     __|__
+               Krilo (nagib) -------/  |  \------- Krilo (nagib)
+                ===================[ TRUP ]===================
+                                       |
+                                       |--- Trup (baterija LiPo + sprejemnik)
+                                       |
+                              ---------+--------- Višinsko krmilo
+                                       |
+                                  Smerno krmilo">
+                    <figcaption id="opis-slike-delavnica">
+                        Tehnični izris konstrukcije krila iz balze in namestitve pogonskega sklopa v delavnici.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- // 2. SKLOP: Kategorije RC letal (oblikovan neurejen seznam) -->
+        <section id="kategorije-modelov">
+            <h2 id="naslov-kategorije">2. Kategorije RC letal v naši sekciji</h2>
+            <p id="uvod-kategorije">Člani našega društva letijo z različnimi vrstami letalskih modelov glede na namen in pogon:</p>
+            <ul id="seznam-kategorij">
+                <li id="kategorija-trainer"><strong>Šolski visokokrilni modeli (Trainerji):</strong> Stabilna letala iz penastih materialov (EPO/EPP) ali lesa, namenjena učenju osnov vzletanja in pristajanja.</li>
+                <li id="kategorija-f5j"><strong>Električni jadralni modeli (kategorija F5J):</strong> Lahki modeli z električnim motorjem za dvig na višino in dolgim jadranjem v termičnih stebrih.</li>
+                <li id="kategorija-3d"><strong>Akrobatska letala (3D in F3A):</strong> Zmogljivi modeli z velikimi odkloni krmilnih površin za izvajanje zahtevnih manevrov.</li>
+                <li id="kategorija-scale"><strong>Makete pravih letal (Scale):</strong> Natančne pomanjšane kopije zgodovinskih in sodobnih letal na električni ali bencinski pogon.</li>
+            </ul>
+        </section>
+
+        <!-- // 3. SKLOP: Šola letenja (oblikovan oštevilčen seznam korakov) -->
+        <section id="sola-letenja">
+            <h2 id="naslov-sola">3. Kako poteka učenje letenja za nove člane?</h2>
+            <p id="uvod-sola">Vsak novinec gre skozi preizkušen petstopenjski program usposabljanja pod vodstvom mentorja:</p>
+            <ol id="koraki-ucenja">
+                <li id="korak-1">Spoznanje aerodinamike in delovanja krmilnih površin (višina, smer, nagib in plin).</li>
+                <li id="korak-2">Vadba na računalniškem RC simulatorju za pridobitev osnovne orientacije, ko letalo leti proti pilotu.</li>
+                <li id="korak-3">Tehnični pregled modela pred poletom (preverjanje težišča – CG, delovanja servomotorjev in napetosti LiPo baterije).</li>
+                <li id="korak-4">Letenje z mentorjem prek povezanih oddajnikov (sistem učitelj–učenec), kjer mentor ob nevarnosti prevzame nadzor.</li>
+                <li id="korak-5">Prvi samostojni vzlet, šolski krog in varen pristanek na stezi.</li>
+            </ol>
+        </section>
+
+        <!-- // 4. SKLOP: Zakonodaja in varnostna pravila (details harmonika brez JS) -->
+        <section id="zakonodaja">
+            <h2 id="naslov-zakonodaja">4. Varnost in evropska pravila za brezpilotne zrakoplove</h2>
+            <p id="uvod-zakonodaja">
+                Vsi piloti RC modelov z maso nad 250 gramov morajo v skladu z evropsko uredbo opraviti 
+                spletno usposabljanje in označiti svoje modele z registrsko številko operatorja.
+            </p>
+            <details id="varnostna-harmonika">
+                <summary id="varnostni-povzetek"><strong>Kliknite za prikaz osnovnih varnostnih pravil na stezi Moškanjci</strong></summary>
+                <ul id="seznam-varnostnih-pravil">
+                    <li id="pravilo-1">Najvišja dovoljena višina letenja v coni letališča je 120 metrov nad terenom.</li>
+                    <li id="pravilo-2">Prepovedano je letenje nad parkiriščem, hangarji in skupinami ljudi.</li>
+                    <li id="pravilo-3">Pred vklopom oddajnika in priklopom pogonske baterije mora pilot preveriti prostost vzletne steze.</li>
+                </ul>
+            </details>
+            <p id="caa-povezava-odstavek">
+                Več uradnih informacij o registraciji in pravilih letenja najdete na uradni spletni strani 
+                <a href="https://www.caa.si/brezpilotni-zrakoplovi.html" id="zunanja-povezava-caa" target="_blank" rel="noopener noreferrer">
+                    Javne agencije za civilno letalstvo Republike Slovenije (CAA)
+                </a>.
+            </p>
+        </section>
+
+    </main>
+
+    <!--
+    //**********************************************************
+    // Noga spletne strani s spodnjo (footer) navigacijo       *
+    //**********************************************************
+    -->
+    <footer class="noga-strani">
+        <div class="vsebnik noga-notranjost">
+            <nav class="noga-navigacija" aria-label="Spodnja navigacija">
+                <ul class="noga-seznam">
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="dejavnost.html" aria-current="page" class="aktiven">Podrobnosti o dejavnosti</a></li>
+                    <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                    <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                </ul>
+            </nav>
+            <p class="noga-avtorske">
+                <small>&copy; 2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="informacije.html">Nadaljuj na praktične informacije &rarr;</a></small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

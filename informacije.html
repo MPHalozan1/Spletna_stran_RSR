@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Urnik treningov in delavnic, cenik članarine ter lokacija modelarske steze na letališču Moškanjci pri Ptuju.">
+    <meta name="author" content="Miha Plajnšek">
+    <title>RC Modelarstvo Ptuj – Praktične informacije</title>
+    <!-- // Skupna CSS datoteka -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- // Unikatna CSS datoteka za podstran Informacije -->
+    <link rel="stylesheet" href="CSS/informacije.css">
+</head>
+<body>
+
+    <!--
+    //**********************************************************
+    // Pripeta zgornja vrstica (Sticky Top Bar):               *
+    // Rumeni napis trenutne strani, Pure-CSS DDL meni in tema *
+    //**********************************************************
+    -->
+    <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
+        <div class="vsebnik pripeta-notranjost">
+            <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
+            <span class="znacka-sekcije">&#9992; Stran: <strong>Informacije in urnik</strong></span>
+
+            <div class="pripeta-kontrole">
+                <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
+                <input type="checkbox" id="meni-ddl-stikalo" class="skrit-checkbox" aria-label="Odpri navigacijski meni">
+                <label for="meni-ddl-stikalo" class="meni-ddl-gumb">
+                    <span class="ddl-tekst">Meni</span>
+                    <span class="ddl-puscica" aria-hidden="true">&#9662;</span>
+                </label>
+
+                <!-- // Pure-CSS Light/Dark stikalo brez JavaScripta -->
+                <div class="tema-preklopnik">
+                    <input type="checkbox" id="tema-stikalo" class="skrit-checkbox" aria-label="Preklopi med temnim in svetlim načinom">
+                    <label for="tema-stikalo" class="tema-oznaka" title="Preklopi svetli / temni način">
+                        <span class="tema-ikona" aria-hidden="true">&#127769;</span>
+                        <span class="tema-ikona" aria-hidden="true">&#9728;&#65039;</span>
+                        <span class="tema-kroglica"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- // Navigacijske povezave (DDL spustni seznam na mobilu, vrstica na namizju) -->
+            <ul class="nav-seznam">
+                <li><a href="index.html">Domov</a></li>
+                <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                <li><a href="informacije.html" aria-current="page" class="aktiven">Praktične informacije in urnik</a></li>
+                <li><a href="kontakt.html">Kontakt in vpis</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    //**********************************************************
+    // Glava strani z naslovom (se normalno odrola ob drsenju) *
+    //**********************************************************
+    -->
+    <header class="glava-strani">
+        <div class="vsebnik glava-vrstica">
+            <div class="glava-naslovni-del">
+                <h1 id="informacije-glavni-naslov">&#9992; Praktične informacije za člane in obiskovalce</h1>
+                <p id="informacije-podnaslov" class="glava-podnaslov"><em>Vse o terminih srečanj, lokaciji modelarske steze in pogojih vključitve v sekcijo.</em></p>
+            </div>
+        </div>
+    </header>
+
+    <!--
+    //**********************************************************
+    // Glavna vsebina podstrani Informacije (informacije.html) *
+    //**********************************************************
+    -->
+    <main class="vsebnik">
+
+        <!-- // 1. SKLOP: Tedenski urnik v odzivnem drsnem vsebniku -->
+        <section id="urnik">
+            <h2 id="naslov-urnik">1. Tedenski urnik dejavnosti in letenja</h2>
+            <p id="opis-urnik">
+                Dejavnosti prilagajamo letnemu času in vremenskim razmeram (ob močnem vetru nad 10 m/s ali dežju 
+                zunanji treningi odpadejo).
+            </p>
+
+            <div id="ovoj-tabele-urnik" class="tabela-ovoj">
+                <table id="tabela-urnik">
+                    <caption id="naslov-tabele-urnik"><strong>Pregled rednih tedenskih terminov modelarske sekcije v sezoni 2026/2027</strong></caption>
+                    <thead id="glava-tabele-urnik">
+                        <tr>
+                            <th scope="col">Dan</th>
+                            <th scope="col">Ura</th>
+                            <th scope="col">Dejavnost</th>
+                            <th scope="col">Lokacija</th>
+                            <th scope="col">Ciljna skupina</th>
+                        </tr>
+                    </thead>
+                    <tbody id="telo-tabele-urnik">
+                        <tr id="vrstica-sreda">
+                            <td><strong class="poudarjen-dan">Sreda</strong></td>
+                            <td><span class="ura-znacka">17:00–19:30</span></td>
+                            <td>Modelarska delavnica in gradnja</td>
+                            <td>Klubska delavnica Moškanjci</td>
+                            <td>Začetniki in mladi člani</td>
+                        </tr>
+                        <tr id="vrstica-petek">
+                            <td><strong class="poudarjen-dan">Petek</strong></td>
+                            <td><span class="ura-znacka">16:00–19:00</span></td>
+                            <td>Šola letenja (učitelj–učenec)</td>
+                            <td>Modelarska steza Moškanjci</td>
+                            <td>Tečajniki s šolskimi modeli</td>
+                        </tr>
+                        <tr id="vrstica-sobota">
+                            <td><strong class="poudarjen-dan">Sobota</strong></td>
+                            <td><span class="ura-znacka">09:00–18:00</span></td>
+                            <td>Prosto letenje in trening F5J</td>
+                            <td>Modelarska steza Moškanjci</td>
+                            <td>Vsi registrirani člani</td>
+                        </tr>
+                        <tr id="vrstica-nedelja">
+                            <td><strong class="poudarjen-dan">Nedelja</strong></td>
+                            <td><span class="ura-znacka">09:00–13:00</span></td>
+                            <td>Družabno letenje in predstavitve</td>
+                            <td>Modelarska steza Moškanjci</td>
+                            <td>Člani in obiskovalci (ogled)</td>
+                        </tr>
+                    </tbody>
+                    <tfoot id="noga-tabele-urnik">
+                        <tr>
+                            <td colspan="5">
+                                <em>Opomba: V zimskem času (november–februar) potekajo ob sobotah med 10:00 in 13:00 delavnice simulatorja letenja.</em>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </section>
+
+        <!-- // 2. SKLOP: Cenik letne članarine z izstopajočimi zneski -->
+        <section id="clanarina">
+            <h2 id="naslov-clanarina">2. Način vključitve in letna članarina</h2>
+            <p id="opis-clanarina">
+                V društvo se lahko vpišete kadarkoli med letom. Letna članarina krije vzdrževanje travnate steze, 
+                uporabo polnilne postaje 12V/24V na letališču in osnovni material v delavnici.
+            </p>
+
+            <div id="ovoj-tabele-clanarina" class="tabela-ovoj">
+                <table id="tabela-clanarina">
+                    <caption id="naslov-tabele-clanarina"><strong>Cenik letne članarine za leto 2026</strong></caption>
+                    <thead id="glava-tabele-clanarina">
+                        <tr>
+                            <th scope="col">Status člana</th>
+                            <th scope="col">Letna članarina</th>
+                            <th scope="col">Kaj vključuje članarina</th>
+                        </tr>
+                    </thead>
+                    <tbody id="telo-tabele-clanarina">
+                        <tr id="clanarina-osnovnosolci">
+                            <td>Osnovnošolci</td>
+                            <td><strong id="cena-osnovnosolci" class="poudarjena-cena">20,00 EUR</strong></td>
+                            <td>Vodenje v delavnici, les balza za prvi model, šola letenja</td>
+                        </tr>
+                        <tr id="clanarina-dijaki">
+                            <td>Dijaki in študenti</td>
+                            <td><strong id="cena-dijaki" class="poudarjena-cena">35,00 EUR</strong></td>
+                            <td>Uporaba delavnice, mentorstvo in neomejena uporaba steze</td>
+                        </tr>
+                        <tr id="clanarina-zaposleni">
+                            <td>Polnoletni zaposleni člani</td>
+                            <td><strong id="cena-zaposleni" class="poudarjena-cena">60,00 EUR</strong></td>
+                            <td>Neomejena uporaba modelarske steze in klubske infrastrukture</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- // 3. SKLOP: Lokacija in varnostno opozorilo -->
+        <section id="lokacija">
+            <h2 id="naslov-lokacija">3. Lokacija in navodila za obiskovalce</h2>
+            <fieldset id="okvir-lokacija">
+                <legend id="legenda-lokacija"><strong>Kje nas najdete?</strong></legend>
+                <p id="opis-lokacija">
+                    Modelarska steza se nahaja na južnem robu Športnega letališča Ptuj (Moškanjci), ločeno od glavne 
+                    vzletno-pristajalne steze za športna letala.
+                </p>
+                <address id="naslov-letalisce">
+                    <strong>Naslov letališča:</strong><br>
+                    Aeroklub Ptuj – Modelarska sekcija<br>
+                    Moškanjci 18a<br>
+                    2272 Gorišnica, Slovenija
+                </address>
+                <aside id="varnostno-opozorilo-okvir">
+                    <p id="varnostno-opozorilo-tekst">
+                        <strong>Varnostno opozorilo:</strong> Obiskovalce prosimo, da ob prihodu na letališče vozila parkirajo 
+                        na označenem parkirišču ob hangarju in nikoli ne prečkajo aktivne vzletno-pristajalne steze brez spremstva člana sekcije.
+                    </p>
+                </aside>
+            </fieldset>
+        </section>
+
+    </main>
+
+    <!--
+    //**********************************************************
+    // Noga spletne strani s spodnjo (footer) navigacijo       *
+    //**********************************************************
+    -->
+    <footer class="noga-strani">
+        <div class="vsebnik noga-notranjost">
+            <nav class="noga-navigacija" aria-label="Spodnja navigacija">
+                <ul class="noga-seznam">
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                    <li><a href="informacije.html" aria-current="page" class="aktiven">Praktične informacije in urnik</a></li>
+                    <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                </ul>
+            </nav>
+            <p class="noga-avtorske">
+                <small>&copy; 2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="kontakt.html">Prijavite se prek kontaktnega obrazca &rarr;</a></small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>

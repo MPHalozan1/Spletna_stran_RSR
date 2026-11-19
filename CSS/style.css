@@ -1,0 +1,556 @@
+/*
+//**********************************************************
+// Skupna CSS datoteka (CSS/style.css)                     *
+// Projekt: Modelarska sekcija Aerokluba Ptuj - RC Letala  *
+// Avtor: Miha Plajnšek                                    *
+//**********************************************************
+*/
+
+/*
+//**********************************************************
+// 1. CSS spremenljivke: Barvna paleta, tipografija, razmiki*
+// Privzeta tema: Sleek Aviation Dark Mode                 *
+//**********************************************************
+*/
+:root {
+    /* // Barvna paleta - Temni način (privzeto) */
+    --barva-ozadje: #0b1120;
+    --barva-povrsina: #111827;
+    --barva-kartica: #1e293b;
+    --barva-glava: rgba(11, 17, 32, 0.90);
+    --barva-besedilo: #f8fafc;
+    --barva-besedilo-sekundarno: #94a3b8;
+    --barva-primarna: #38bdf8;
+    --barva-primarna-temna: #0284c7;
+    --barva-sekundarna: #f59e0b;
+    --barva-rob: rgba(148, 163, 184, 0.18);
+    --barva-fokus: rgba(56, 189, 248, 0.35);
+    --senca-kartica: 0 12px 28px -8px rgba(0, 0, 0, 0.55);
+
+    /* // Sistem razmikov (Spacing scale) */
+    --razmik-xs: 0.5rem;
+    --razmik-sm: 0.85rem;
+    --razmik-md: 1.25rem;
+    --razmik-lg: 2rem;
+    --razmik-xl: 3.25rem;
+
+    /* // Tipografija in zaobljenost */
+    --pisava-osnovna: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --pisava-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    --radij-sm: 0.5rem;
+    --radij-md: 0.85rem;
+    --radij-lg: 1.15rem;
+    --sirina-vsebine: 1180px;
+    --prehod: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*
+//**********************************************************
+// 2. Pure CSS preklop na Svetli način (Light Mode)        *
+// Uporablja sodoben CSS selektor :has() brez JavaScripta  *
+//**********************************************************
+*/
+:root:has(#tema-stikalo:checked) {
+    --barva-ozadje: #f8fafc;
+    --barva-povrsina: #e2e8f0;
+    --barva-kartica: #ffffff;
+    --barva-glava: rgba(248, 250, 252, 0.92);
+    --barva-besedilo: #0f172a;
+    --barva-besedilo-sekundarno: #475569;
+    --barva-primarna: #0284c7;
+    --barva-primarna-temna: #0369a1;
+    --barva-sekundarna: #d97706;
+    --barva-rob: rgba(15, 23, 42, 0.14);
+    --barva-fokus: rgba(2, 132, 199, 0.28);
+    --senca-kartica: 0 10px 24px -6px rgba(15, 23, 42, 0.08);
+}
+
+/*
+//**********************************************************
+// 3. Osnovna ponastavitev in globalne nastavitve          *
+//**********************************************************
+*/
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+
+body {
+    font-family: var(--pisava-osnovna);
+    background-color: var(--barva-ozadje);
+    color: var(--barva-besedilo);
+    line-height: 1.65;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: background-color var(--prehod), color var(--prehod);
+}
+
+/* // Prilagodljive slike (brez neželenega vodoravnega pomikanja) */
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* // Osnovna vizualna hierarhija naslovov in besedila */
+h1, h2, h3 {
+    line-height: 1.25;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--barva-besedilo);
+}
+
+h1 {
+    font-size: clamp(1.5rem, 4vw, 2.3rem);
+    margin-bottom: var(--razmik-xs);
+}
+
+h2 {
+    font-size: clamp(1.25rem, 3vw, 1.7rem);
+    margin-bottom: var(--razmik-md);
+    padding-bottom: var(--razmik-xs);
+    border-bottom: 2px solid var(--barva-rob);
+    display: flex;
+    align-items: center;
+    gap: var(--razmik-xs);
+}
+
+h3 {
+    font-size: 1.2rem;
+    margin-bottom: var(--razmik-xs);
+    color: var(--barva-primarna);
+}
+
+p {
+    margin-bottom: var(--razmik-md);
+    color: var(--barva-besedilo-sekundarno);
+}
+
+strong {
+    color: var(--barva-besedilo);
+}
+
+a {
+    color: var(--barva-primarna);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color var(--prehod), transform var(--prehod);
+}
+
+a:hover {
+    color: var(--barva-sekundarna);
+}
+
+a:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* // Glavni vsebnik vsebine */
+.vsebnik {
+    width: min(var(--sirina-vsebine), 92%);
+    margin-inline: auto;
+}
+
+main.vsebnik {
+    flex: 1;
+    padding-block: var(--razmik-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-xl);
+}
+
+/*
+//**********************************************************
+// 4. Pripeta zgornja vrstica (Sticky Top Bar)             *
+// Na mobilu pripeta SAMO rumena značka strani + DDL meni, *
+// medtem ko se velika glava z naslovom normalno odrola!   *
+//**********************************************************
+*/
+.pripeta-vrstica {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--barva-glava);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--barva-rob);
+    box-shadow: 0 4px 20px -4px rgba(0, 0, 0, 0.35);
+}
+
+.pripeta-notranjost {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--razmik-xs);
+    padding-block: 0.6rem;
+}
+
+/* // Rumeni napis (značka), ki kaže na kateri strani se nahajaš */
+.znacka-sekcije {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--barva-sekundarna);
+    background: rgba(245, 158, 11, 0.14);
+    border: 1px solid rgba(245, 158, 11, 0.45);
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.znacka-sekcije strong {
+    color: var(--barva-sekundarna);
+    text-transform: uppercase;
+}
+
+/* // Desni sklop kontrol v pripeti vrstici (DDL gumb + stikalo za temo) */
+.pripeta-kontrole {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.skrit-checkbox {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* // Pure-CSS DDL (Dropdown) gumb za mobilno navigacijo */
+.meni-ddl-gumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.38rem 0.85rem;
+    background: var(--barva-kartica);
+    color: var(--barva-besedilo);
+    border: 1px solid var(--barva-rob);
+    border-radius: 999px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color var(--prehod), background-color var(--prehod), color var(--prehod);
+}
+
+.meni-ddl-gumb:hover {
+    border-color: var(--barva-primarna);
+    color: var(--barva-primarna);
+}
+
+.ddl-puscica {
+    display: inline-block;
+    font-size: 0.8rem;
+    transition: transform var(--prehod);
+}
+
+/* // Ko je DDL odklopljen, zavrti puščico in obarvaj gumb */
+#meni-ddl-stikalo:checked + .meni-ddl-gumb {
+    border-color: var(--barva-sekundarna);
+    color: var(--barva-sekundarna);
+    background: rgba(245, 158, 11, 0.12);
+}
+
+#meni-ddl-stikalo:checked + .meni-ddl-gumb .ddl-puscica {
+    transform: rotate(180deg);
+}
+
+/* // Stikalo za preklop teme (Light / Dark) */
+.tema-oznaka {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 3.6rem;
+    height: 1.9rem;
+    padding: 0.22rem 0.4rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: 999px;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color var(--prehod), box-shadow var(--prehod);
+}
+
+.tema-oznaka:hover {
+    border-color: var(--barva-primarna);
+    box-shadow: 0 0 12px var(--barva-fokus);
+}
+
+.tema-ikona {
+    font-size: 0.8rem;
+    z-index: 1;
+    line-height: 1;
+}
+
+.tema-kroglica {
+    position: absolute;
+    top: 0.2rem;
+    left: 0.22rem;
+    width: 1.38rem;
+    height: 1.38rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--barva-primarna), var(--barva-sekundarna));
+    transition: transform var(--prehod);
+}
+
+#tema-stikalo:checked + .tema-oznaka .tema-kroglica {
+    transform: translateX(1.65rem);
+}
+
+/* // Spustni DDL seznam strani na mobilnih napravah (privzeto zaprt) */
+.nav-seznam {
+    list-style: none;
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    padding: 0.65rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    box-shadow: var(--senca-kartica);
+}
+
+/* // Ko uporabnik klikne na DDL gumb, se seznam prikaže */
+.pripeta-notranjost:has(#meni-ddl-stikalo:checked) .nav-seznam {
+    display: flex;
+}
+
+.nav-seznam a {
+    display: block;
+    padding: 0.55rem 0.9rem;
+    border-radius: var(--radij-sm);
+    color: var(--barva-besedilo-sekundarno);
+    font-size: 0.9rem;
+    transition: background-color var(--prehod), color var(--prehod), transform var(--prehod);
+}
+
+.nav-seznam a:hover,
+.nav-seznam a.aktiven,
+.nav-seznam a[aria-current="page"] {
+    background: var(--barva-kartica);
+    color: var(--barva-sekundarna);
+    border-left: 3px solid var(--barva-sekundarna);
+    transform: translateX(4px);
+}
+
+/*
+//**********************************************************
+// 5. Glava strani z naslovom (NI fixed/sticky, se odrola) *
+//**********************************************************
+*/
+.glava-strani {
+    background: var(--barva-povrsina);
+    border-bottom: 1px solid var(--barva-rob);
+    padding-block: var(--razmik-md);
+}
+
+.glava-podnaslov {
+    margin-bottom: 0;
+    font-size: 0.95rem;
+}
+
+/*
+//**********************************************************
+// 6. Skupni gumbi, kartice, polja (fieldset) in tabele    *
+//**********************************************************
+*/
+.gumb-primarni,
+.gumb-sekundarni {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.4rem;
+    border-radius: var(--radij-sm);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform var(--prehod), box-shadow var(--prehod), background-color var(--prehod);
+}
+
+.gumb-primarni {
+    background: linear-gradient(135deg, var(--barva-primarna), var(--barva-primarna-temna));
+    color: #ffffff;
+    box-shadow: 0 4px 15px var(--barva-fokus);
+}
+
+.gumb-primarni strong {
+    color: #ffffff;
+}
+
+.gumb-primarni:hover {
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px var(--barva-fokus);
+}
+
+.gumb-sekundarni {
+    background: var(--barva-kartica);
+    color: var(--barva-besedilo);
+    border-color: var(--barva-rob);
+}
+
+.gumb-sekundarni:hover {
+    color: var(--barva-primarna);
+    border-color: var(--barva-primarna);
+    transform: translateY(-3px);
+}
+
+fieldset {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+}
+
+legend {
+    padding: 0.25rem 0.75rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    color: var(--barva-primarna);
+    font-size: 0.92rem;
+}
+
+/* // Drsni vsebnik za tabele na ozkih zaslonih */
+.tabela-ovoj {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: var(--radij-md);
+    border: 1px solid var(--barva-rob);
+    background: var(--barva-kartica);
+    box-shadow: var(--senca-kartica);
+}
+
+/*
+//**********************************************************
+// 7. Noga strani s spodnjo (footer) Flexbox navigacijo    *
+//**********************************************************
+*/
+.noga-strani {
+    background: var(--barva-povrsina);
+    border-top: 1px solid var(--barva-rob);
+    padding-block: var(--razmik-lg);
+    margin-top: auto;
+}
+
+.noga-notranjost {
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-md);
+    align-items: center;
+    text-align: center;
+}
+
+.noga-seznam {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--razmik-xs) var(--razmik-md);
+}
+
+.noga-seznam a {
+    color: var(--barva-besedilo-sekundarno);
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radij-sm);
+}
+
+.noga-seznam a:hover,
+.noga-seznam a.aktiven {
+    color: var(--barva-primarna);
+    background: var(--barva-kartica);
+}
+
+.noga-avtorske {
+    margin-bottom: 0;
+    font-size: 0.88rem;
+}
+
+/*
+//**********************************************************
+// 8. Media Queries (Mobile-First odzivne prilagoditve)    *
+// Mejni točki: 768px (tablice) in 1024px/1440px (namizje) *
+//**********************************************************
+*/
+@media (min-width: 768px) {
+    .glava-strani {
+        padding-block: var(--razmik-lg);
+    }
+
+    fieldset {
+        padding: var(--razmik-lg);
+    }
+
+    .noga-notranjost {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+    }
+}
+
+@media (min-width: 1024px) {
+    /* // Na namizju skrijemo DDL gumb in prikažemo vodoravno Flexbox vrstico */
+    .meni-ddl-gumb {
+        display: none;
+    }
+
+    .pripeta-notranjost {
+        flex-wrap: nowrap;
+        padding-block: 0.65rem;
+    }
+
+    .znacka-sekcije {
+        order: 1;
+    }
+
+    .nav-seznam {
+        order: 2;
+        display: flex !important;
+        flex-direction: row;
+        width: auto;
+        margin-top: 0;
+        padding: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        gap: 0.35rem;
+    }
+
+    .nav-seznam a:hover,
+    .nav-seznam a.aktiven,
+    .nav-seznam a[aria-current="page"] {
+        border-left: none;
+        transform: translateY(-2px);
+    }
+
+    .pripeta-kontrole {
+        order: 3;
+    }
+
+    main.vsebnik {
+        padding-block: var(--razmik-xl);
+    }
+}
