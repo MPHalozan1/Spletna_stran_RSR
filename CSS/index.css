@@ -119,7 +119,8 @@
 
 #povezava-element-1,
 #povezava-element-2,
-#povezava-element-3 {
+#povezava-element-3,
+#povezava-element-4 {
     padding: 0.65rem 0.9rem;
     background: var(--barva-povrsina);
     border-radius: var(--radij-sm);
@@ -129,7 +130,8 @@
 
 #povezava-element-1:hover,
 #povezava-element-2:hover,
-#povezava-element-3:hover {
+#povezava-element-3:hover,
+#povezava-element-4:hover {
     transform: translateX(6px);
 }
 
@@ -147,5 +149,330 @@
 @media (min-width: 1024px) {
     #uvodni-grid {
         grid-template-columns: 1.15fr 0.85fr;
+    }
+}
+
+/*
+//**********************************************************
+// 4. Pozdrav glede na del dneva in ura v živo           *
+//**********************************************************
+*/
+#pozdrav-ura-sklop {
+    --pozdrav-poudarek: var(--barva-primarna);
+    --pozdrav-sijaj: rgba(56, 189, 248, 0.16);
+    animation: pojaviSe 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+#pozdrav-ura-sklop:empty {
+    display: none;
+}
+
+#pozdrav-ura-sklop.pozdrav-jutro {
+    --pozdrav-poudarek: #f59e0b;
+    --pozdrav-sijaj: rgba(245, 158, 11, 0.18);
+}
+
+#pozdrav-ura-sklop.pozdrav-dan {
+    --pozdrav-poudarek: var(--barva-primarna);
+    --pozdrav-sijaj: rgba(56, 189, 248, 0.18);
+}
+
+#pozdrav-ura-sklop.pozdrav-vecer {
+    --pozdrav-poudarek: #818cf8;
+    --pozdrav-sijaj: rgba(129, 140, 248, 0.2);
+}
+
+:root[data-theme="light"] #pozdrav-ura-sklop.pozdrav-jutro,
+:root:not([data-theme]):has(#tema-stikalo:checked) #pozdrav-ura-sklop.pozdrav-jutro {
+    --pozdrav-poudarek: #b45309;
+    --pozdrav-sijaj: rgba(217, 119, 6, 0.09);
+}
+
+:root[data-theme="light"] #pozdrav-ura-sklop.pozdrav-dan,
+:root:not([data-theme]):has(#tema-stikalo:checked) #pozdrav-ura-sklop.pozdrav-dan {
+    --pozdrav-poudarek: #0369a1;
+    --pozdrav-sijaj: rgba(2, 132, 199, 0.09);
+}
+
+:root[data-theme="light"] #pozdrav-ura-sklop.pozdrav-vecer,
+:root:not([data-theme]):has(#tema-stikalo:checked) #pozdrav-ura-sklop.pozdrav-vecer {
+    --pozdrav-poudarek: #4f46e5;
+    --pozdrav-sijaj: rgba(79, 70, 229, 0.10);
+}
+
+.pozdrav-kartica {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--razmik-sm);
+    padding: var(--razmik-md);
+    background: var(--barva-kartica);
+    background-color: color-mix(in srgb, var(--barva-kartica) 88%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-lg);
+    box-shadow: var(--senca-kartica);
+    transition: transform var(--prehod), border-color var(--prehod), box-shadow var(--prehod);
+}
+
+.pozdrav-kartica::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 8% 20%, var(--pozdrav-sijaj), transparent 58%);
+    pointer-events: none;
+    transition: opacity var(--prehod);
+}
+
+.pozdrav-kartica:hover {
+    transform: translateY(-3px);
+    border-color: var(--pozdrav-poudarek);
+    box-shadow: var(--senca-kartica), 0 0 24px -10px var(--pozdrav-poudarek);
+}
+
+.pozdrav-levo {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: var(--razmik-sm);
+    width: 100%;
+}
+
+.pozdrav-ikona-okvir {
+    flex-shrink: 0;
+    width: 3.15rem;
+    height: 3.15rem;
+    border-radius: var(--radij-md);
+    display: grid;
+    place-items: center;
+    color: var(--pozdrav-poudarek);
+    background: var(--pozdrav-sijaj);
+    border: 1px solid var(--barva-rob);
+    transition: transform var(--prehod), color var(--prehod), background-color var(--prehod);
+}
+
+.pozdrav-kartica:hover .pozdrav-ikona-okvir {
+    transform: scale(1.05);
+}
+
+.pozdrav-ikona-svg {
+    width: 1.65rem;
+    height: 1.65rem;
+}
+
+.pozdrav-jutro .pozdrav-ikona-svg {
+    animation: dvigSonca 4.5s ease-in-out infinite;
+}
+
+.pozdrav-dan .pozdrav-ikona-svg {
+    animation: vrtenjeSonca 22s linear infinite;
+}
+
+.pozdrav-vecer .pozdrav-ikona-svg {
+    animation: sijajLune 5s ease-in-out infinite;
+}
+
+.pozdrav-vsebina {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+}
+
+.pozdrav-nadnaslov {
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.pozdrav-glavni-niz {
+    margin-bottom: 0;
+    font-size: clamp(1.12rem, 2.5vw, 1.42rem);
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--barva-besedilo);
+}
+
+.pozdrav-locilo {
+    color: var(--barva-besedilo-sekundarno);
+    font-weight: 600;
+}
+
+.pozdrav-ura {
+    font-family: var(--pisava-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    color: var(--pozdrav-poudarek);
+    display: inline-block;
+}
+
+.pozdrav-ura.tik-a {
+    animation: uraTikA 0.35s ease-out;
+}
+
+.pozdrav-ura.tik-b {
+    animation: uraTikB 0.35s ease-out;
+}
+
+.pozdrav-datum {
+    margin-bottom: 0;
+    font-size: 0.88rem;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.pozdrav-desno {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.pozdrav-status-znacka {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.42rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--barva-besedilo);
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    white-space: nowrap;
+}
+
+.pozdrav-utrip-pika {
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--barva-uspeh, #10b981);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
+    animation: utripPike 2s ease-out infinite;
+}
+
+#pozdrav-ura-sklop.pozdrav-prehod-a .pozdrav-kartica {
+    animation: obdobjePrehodA 0.5s ease-out;
+}
+
+#pozdrav-ura-sklop.pozdrav-prehod-b .pozdrav-kartica {
+    animation: obdobjePrehodB 0.5s ease-out;
+}
+
+@keyframes dvigSonca {
+    0%, 100% {
+        transform: translateY(1px);
+    }
+    50% {
+        transform: translateY(-2px);
+    }
+}
+
+@keyframes vrtenjeSonca {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes sijajLune {
+    0%, 100% {
+        transform: rotate(-4deg) scale(1);
+    }
+    50% {
+        transform: rotate(5deg) scale(1.05);
+    }
+}
+
+@keyframes uraTikA {
+    0% {
+        opacity: 0.72;
+        transform: translateY(-1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes uraTikB {
+    0% {
+        opacity: 0.72;
+        transform: translateY(-1px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes utripPike {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.55);
+    }
+    70% {
+        box-shadow: 0 0 0 7px rgba(16, 185, 129, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+@keyframes obdobjePrehodA {
+    0% {
+        opacity: 0.85;
+        transform: scale(0.992);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes obdobjePrehodB {
+    0% {
+        opacity: 0.85;
+        transform: scale(0.992);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (min-width: 768px) {
+    .pozdrav-kartica {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: var(--razmik-md) var(--razmik-lg);
+    }
+
+    .pozdrav-levo {
+        width: auto;
+        gap: var(--razmik-md);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #pozdrav-ura-sklop,
+    .pozdrav-jutro .pozdrav-ikona-svg,
+    .pozdrav-dan .pozdrav-ikona-svg,
+    .pozdrav-vecer .pozdrav-ikona-svg,
+    .pozdrav-ura.tik-a,
+    .pozdrav-ura.tik-b,
+    .pozdrav-utrip-pika,
+    #pozdrav-ura-sklop.pozdrav-prehod-a .pozdrav-kartica,
+    #pozdrav-ura-sklop.pozdrav-prehod-b .pozdrav-kartica {
+        animation: none;
     }
 }

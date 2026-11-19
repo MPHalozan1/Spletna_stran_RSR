@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="CSS/style.css">
     <!-- // Unikatna CSS datoteka za podstran Dejavnost -->
     <link rel="stylesheet" href="CSS/dejavnost.css">
+    <!-- // Skupna JS skripta za temo in navigacijo -->
+    <script src="JS/common.js"></script>
+    <!-- // Unikatna JS skripta za podstran Dejavnost -->
+    <script src="JS/dejavnost.js" defer></script>
 </head>
 <body>
 
@@ -22,7 +26,7 @@
     <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
         <div class="vsebnik pripeta-notranjost">
             <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
-            <span class="znacka-sekcije">Stran: <strong>Podrobnosti o dejavnosti</strong></span>
+            <span class="znacka-sekcije">&#9992; Stran: <strong>Podrobnosti o dejavnosti</strong></span>
 
             <div class="pripeta-kontrole">
                 <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
@@ -49,6 +53,7 @@
                 <li><a href="dejavnost.html" aria-current="page" class="aktiven">Podrobnosti o dejavnosti</a></li>
                 <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                 <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +66,7 @@
     <header class="glava-strani">
         <div class="vsebnik glava-vrstica">
             <div class="glava-naslovni-del">
-                <h1 id="dejavnost-glavni-naslov">Podrobnosti o dejavnosti: Od načrta do poleta</h1>
+                <h1 id="dejavnost-glavni-naslov">&#9992; Podrobnosti o dejavnosti: Od načrta do poleta</h1>
                 <p id="dejavnost-podnaslov" class="glava-podnaslov"><em>Spoznajte tehnični in praktični del radijsko vodenega letalskega modelarstva.</em></p>
             </div>
         </div>
@@ -157,6 +162,13 @@
             </p>
         </section>
 
+        <!-- // 5. SKLOP: Aktualni dogodki, delavnice in prosti termini -->
+        <section id="aktualne-dejavnosti">
+            <h2 id="naslov-aktualne-dejavnosti">5. Aktualni dogodki, delavnice in prosti termini</h2>
+            <p id="uvod-aktualne-dejavnosti">Oglejte si prihajajoče delavnice, šolske termine in letalske dogodke Aerokluba Ptuj ter rezervirajte svoje mesto.</p>
+            <div id="dejavnosti-vsebnik"></div>
+        </section>
+
     </main>
 
     <!--
@@ -172,6 +184,7 @@
                     <li><a href="dejavnost.html" aria-current="page" class="aktiven">Podrobnosti o dejavnosti</a></li>
                     <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                     <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                    <li><a href="simulator.html">Simulator</a></li>
                 </ul>
             </nav>
             <p class="noga-avtorske">

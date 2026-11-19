@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="CSS/style.css">
     <!-- // Unikatna CSS datoteka za vstopno stran -->
     <link rel="stylesheet" href="CSS/index.css">
+    <!-- // Skupna JS skripta za temo in navigacijo -->
+    <script src="JS/common.js"></script>
+    <!-- // Skripta za pozdrav in uro v živo -->
+    <script src="JS/index.js" defer></script>
 </head>
 <body>
 
@@ -22,7 +26,7 @@
     <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
         <div class="vsebnik pripeta-notranjost">
             <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
-            <span class="znacka-sekcije">Stran: <strong>Domov</strong></span>
+            <span class="znacka-sekcije">&#9992; Stran: <strong>Domov</strong></span>
 
             <div class="pripeta-kontrole">
                 <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
@@ -49,6 +53,7 @@
                 <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
                 <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                 <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
             </ul>
         </div>
     </nav>
@@ -61,7 +66,7 @@
     <header class="glava-strani">
         <div class="vsebnik glava-vrstica">
             <div class="glava-naslovni-del">
-                <h1 id="domov-glavni-naslov">Modelarska sekcija Aerokluba Ptuj - RC Letala</h1>
+                <h1 id="domov-glavni-naslov">&#9992; Modelarska sekcija Aerokluba Ptuj - RC Letala</h1>
                 <p id="domov-podnaslov" class="glava-podnaslov"><em>Lokalna skupnost ljubiteljev gradnje in letenja z radijsko vodenimi letalskimi modeli v Spodnjem Podravju in Halozah.</em></p>
             </div>
         </div>
@@ -73,6 +78,9 @@
     //**********************************************************
     -->
     <main class="vsebnik">
+
+        <!-- // Pozdrav glede na del dneva in ura v živo -->
+        <section id="pozdrav-ura-sklop" aria-label="Pozdrav in trenutni čas"></section>
 
         <!-- // 1. SKLOP: Prepoznavno uvodno območje (Hero), CTA in urejena fotografija -->
         <section id="o-nas">
@@ -152,6 +160,7 @@
                     <li id="povezava-element-1">Preberite več o tem, kako poteka <a href="dejavnost.html" id="povezava-dejavnost">gradnja modelov in šola letenja</a>.</li>
                     <li id="povezava-element-2">Oglejte si <a href="informacije.html" id="povezava-informacije">tedenski urnik srečanj, lokacijo steze in cenik članarine</a>.</li>
                     <li id="povezava-element-3">Imate vprašanje ali želite preizkusni polet? <a href="kontakt.html" id="povezava-kontakt">Pišite nam prek kontaktnega obrazca</a>.</li>
+                    <li id="povezava-element-4">Preizkusite naš interaktivni <a href="simulator.html" id="povezava-simulator">2D simulator jadralnega letenja in termike</a>.</li>
                 </ul>
             </fieldset>
         </section>
@@ -171,10 +180,11 @@
                     <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
                     <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                     <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                    <li><a href="simulator.html">Simulator</a></li>
                 </ul>
             </nav>
             <p class="noga-avtorske">
-                <small>2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="kontakt.html">Stopite v stik z nami</a></small>
+                <small>&copy; 2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="kontakt.html">Stopite v stik z nami</a></small>
             </p>
         </div>
     </footer>

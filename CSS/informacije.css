@@ -45,7 +45,14 @@
 
 #telo-tabele-urnik tr:hover,
 #telo-tabele-clanarina tr:hover {
-    background: rgba(56, 189, 248, 0.06);
+    background: rgba(56, 189, 248, 0.08);
+}
+
+:root[data-theme="light"] #telo-tabele-urnik tr:hover,
+:root[data-theme="light"] #telo-tabele-clanarina tr:hover,
+:root:not([data-theme]):has(#tema-stikalo:checked) #telo-tabele-urnik tr:hover,
+:root:not([data-theme]):has(#tema-stikalo:checked) #telo-tabele-clanarina tr:hover {
+    background: rgba(2, 132, 199, 0.08);
 }
 
 #noga-tabele-urnik td {
@@ -82,6 +89,13 @@
     border-radius: 999px;
 }
 
+:root[data-theme="light"] .poudarjena-cena,
+:root:not([data-theme]):has(#tema-stikalo:checked) .poudarjena-cena {
+    color: #92400e;
+    background: rgba(217, 119, 6, 0.12);
+    border-color: rgba(180, 83, 9, 0.35);
+}
+
 /* // Sklop lokacije in varnostnega opozorila */
 #naslov-letalisce {
     font-style: normal;
@@ -105,4 +119,640 @@
 #varnostno-opozorilo-tekst {
     margin-bottom: 0;
     color: var(--barva-besedilo);
+}
+
+/*
+//**********************************************************
+// 4. SKLOP: Interaktivni kalkulator jadralnega doleta     *
+//**********************************************************
+*/
+#kalkulator-vsebnik {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-lg);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-md);
+}
+
+/* // Prednastavitveni čipi zrakoplovov */
+.prednastavitve-sklop {
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-xs);
+}
+
+.prednastavitve-oznaka {
+    margin-bottom: 0;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.prednastavitve-seznam {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-xs);
+}
+
+.zrakoplov-cip {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 44px;
+    gap: 0.2rem;
+    padding: 0.72rem 0.95rem;
+    background: var(--barva-povrsina);
+    color: var(--barva-besedilo);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    font-family: var(--pisava-osnovna);
+    text-align: left;
+    cursor: pointer;
+    transition: transform var(--prehod), border-color var(--prehod), background-color var(--prehod), box-shadow var(--prehod);
+}
+
+.zrakoplov-cip:hover {
+    transform: translateY(-2px);
+    border-color: var(--barva-primarna);
+}
+
+.zrakoplov-cip:active {
+    transform: translateY(0) scale(0.99);
+}
+
+.zrakoplov-cip:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 2px;
+}
+
+.zrakoplov-cip.aktiven {
+    background: rgba(56, 189, 248, 0.14);
+    border-color: var(--barva-primarna);
+    box-shadow: 0 0 0 3px var(--barva-fokus);
+}
+
+.cip-naziv {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--barva-besedilo);
+}
+
+.zrakoplov-cip.aktiven .cip-naziv {
+    color: var(--barva-primarna);
+}
+
+.cip-podatek {
+    font-family: var(--pisava-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+/* // Obrazec z vnosnimi polji */
+.kalkulator-obrazec {
+    padding-top: var(--razmik-xs);
+    border-top: 1px solid var(--barva-rob);
+}
+
+.kalkulator-vnosna-mreza {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-md);
+    align-items: end;
+}
+
+.vnosno-polje-sklop {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.vnos-labela {
+    font-size: 0.94rem;
+    font-weight: 700;
+    color: var(--barva-besedilo);
+}
+
+.vnos-stevilo {
+    width: 100%;
+    padding: 0.78rem 1rem;
+    font-family: var(--pisava-mono);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--barva-besedilo);
+    background-color: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    transition: border-color var(--prehod), box-shadow var(--prehod), background-color var(--prehod);
+}
+
+.vnos-stevilo:focus {
+    outline: none;
+    border-color: var(--barva-primarna);
+    box-shadow: 0 0 0 4px var(--barva-fokus);
+}
+
+.vnos-stevilo:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 2px;
+}
+
+.vnos-stevilo.polje-napaka {
+    border-color: var(--barva-napaka, #f43f5e);
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.22);
+}
+
+.vnos-namig {
+    font-size: 0.8rem;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.vnos-gumb-sklop {
+    display: flex;
+    align-items: stretch;
+}
+
+#gumb-izracunaj {
+    width: 100%;
+    min-height: 48px;
+}
+
+#gumb-izracunaj:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 3px;
+}
+
+/* // Opozorilo ob neveljavnih podatkih */
+.kalkulator-napaka {
+    padding: 0.85rem 1rem;
+    border-radius: var(--radij-sm);
+    border: 1px solid var(--barva-napaka, #f43f5e);
+    border-left: 4px solid var(--barva-napaka, #f43f5e);
+    background: rgba(244, 63, 94, 0.12);
+    color: var(--barva-besedilo);
+    font-weight: 600;
+    font-size: 0.93rem;
+}
+
+.kalkulator-napaka[hidden],
+.kalkulator-rezultati-sklop.skrito,
+.kalkulator-rezultati-sklop[hidden] {
+    display: none;
+}
+
+.stres-napaka {
+    animation: stresNapako 0.36s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes stresNapako {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    20%, 60% {
+        transform: translateX(-5px);
+    }
+    40%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* // Kartice glavnih metrik */
+.kalkulator-rezultati-sklop {
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-md);
+}
+
+.metrike-mreza {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-sm);
+}
+
+.metrika-kartica {
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-top: 4px solid var(--barva-primarna);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    transition: transform var(--prehod), border-color var(--prehod);
+}
+
+.metrika-kartica:hover {
+    transform: translateY(-2px);
+}
+
+.metrika-varni {
+    border-top-color: var(--barva-uspeh, #10b981);
+}
+
+.metrika-cas {
+    border-top-color: var(--barva-sekundarna);
+}
+
+.metrika-oznaka {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.metrika-vrednost {
+    font-family: var(--pisava-mono);
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--barva-primarna);
+}
+
+.metrika-varni .metrika-vrednost {
+    color: var(--barva-uspeh, #10b981);
+}
+
+.metrika-cas .metrika-vrednost {
+    color: var(--barva-sekundarna);
+}
+
+.metrika-opis {
+    font-size: 0.82rem;
+    color: var(--barva-besedilo-sekundarno);
+}
+
+/* // Podporni tehnični pas */
+.tehnicni-povzetek {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--razmik-xs);
+    padding: 0.85rem 1rem;
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+}
+
+.tehnicni-podatek {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--razmik-sm);
+    font-size: 0.9rem;
+}
+
+.tehnicni-naziv {
+    color: var(--barva-besedilo-sekundarno);
+}
+
+.tehnicni-vrednost {
+    font-family: var(--pisava-mono);
+    font-weight: 700;
+    color: var(--barva-besedilo);
+}
+
+/* // Okvir za SVG prikaz drsenja */
+.graf-okvir {
+    background: var(--barva-povrsina);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-xs);
+}
+
+.graf-glava {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.4rem;
+    padding-inline: 0.25rem;
+}
+
+.graf-naslov {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--barva-besedilo);
+}
+
+.graf-vir-hitrosti {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--barva-primarna);
+    background: rgba(56, 189, 248, 0.12);
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+}
+
+#graf-drsenja-svg {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radij-sm);
+    border: 1px solid var(--barva-rob);
+    overflow: hidden;
+}
+
+.graf-nebo {
+    fill: #0d1628;
+    transition: fill var(--prehod);
+}
+
+.graf-tla {
+    fill: #172338;
+    transition: fill var(--prehod);
+}
+
+:root[data-theme="light"] .graf-nebo,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-nebo {
+    fill: #f1f5f9;
+}
+
+:root[data-theme="light"] .graf-tla,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-tla {
+    fill: #e2e8f0;
+}
+
+.graf-mreza-crta {
+    stroke: var(--barva-rob);
+    stroke-width: 1;
+    stroke-dasharray: 4 6;
+}
+
+.graf-tla-crta {
+    stroke: var(--barva-rob);
+    stroke-width: 1.5;
+}
+
+.graf-varni-pas {
+    fill: var(--barva-uspeh, #10b981);
+    opacity: 0.85;
+}
+
+.graf-rezerva-pas {
+    fill: var(--barva-opozorilo, #f59e0b);
+    opacity: 0.78;
+}
+
+.graf-cona-rezerve {
+    stroke: rgba(245, 158, 11, 0.42);
+    stroke-width: 1;
+}
+
+.graf-visina-crta {
+    stroke: var(--barva-primarna);
+    stroke-width: 2;
+    stroke-dasharray: 5 4;
+}
+
+.graf-visina-tocka {
+    fill: var(--barva-primarna);
+    stroke: var(--barva-kartica);
+    stroke-width: 2;
+}
+
+.graf-oznaka-sekundarna {
+    fill: var(--barva-besedilo-sekundarno);
+    font-family: var(--pisava-osnovna);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.graf-vrednost-visina {
+    fill: var(--barva-primarna);
+    font-family: var(--pisava-mono);
+    font-size: 14.5px;
+    font-weight: 800;
+}
+
+.graf-varni-crta {
+    stroke: var(--barva-uspeh, #10b981);
+    stroke-width: 1.8;
+    stroke-dasharray: 5 4;
+}
+
+.graf-pot-podlaga {
+    stroke: var(--barva-primarna);
+    stroke-opacity: 0.22;
+    stroke-width: 4.5;
+    stroke-linecap: round;
+}
+
+.graf-pot-crtkana {
+    stroke: var(--barva-primarna);
+    stroke-width: 2.5;
+    stroke-dasharray: 9 7;
+    stroke-linecap: round;
+    animation: tekoceDrsenje 1.4s linear infinite;
+}
+
+@keyframes tekoceDrsenje {
+    from {
+        stroke-dashoffset: 32;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+.graf-preletena-pot {
+    stroke: var(--barva-sekundarna);
+    stroke-width: 3;
+    stroke-linecap: round;
+}
+
+.graf-rezerva-tekst {
+    fill: var(--barva-opozorilo, #f59e0b);
+    font-family: var(--pisava-osnovna);
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.graf-podatek-badge {
+    fill: var(--barva-besedilo-sekundarno);
+    font-family: var(--pisava-mono);
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.graf-tocka-start {
+    fill: var(--barva-besedilo);
+    stroke: var(--barva-kartica);
+    stroke-width: 2;
+}
+
+.graf-tocka-varni {
+    fill: var(--barva-uspeh, #10b981);
+    stroke: var(--barva-kartica);
+    stroke-width: 2.5;
+}
+
+.graf-tocka-dotik {
+    fill: var(--barva-sekundarna);
+    stroke: var(--barva-kartica);
+    stroke-width: 2.5;
+}
+
+.graf-tla-naziv {
+    fill: var(--barva-besedilo-sekundarno);
+    font-family: var(--pisava-osnovna);
+    font-size: 12.5px;
+    font-weight: 700;
+}
+
+.graf-tla-vrednost {
+    fill: var(--barva-besedilo);
+    font-family: var(--pisava-mono);
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.graf-tla-varni {
+    fill: var(--barva-uspeh, #10b981);
+}
+
+.graf-tla-dotik {
+    fill: var(--barva-sekundarna);
+}
+
+.graf-jadralec {
+    filter: drop-shadow(0 2px 4px rgba(15, 23, 42, 0.35));
+}
+
+.jadralec-trup,
+.jadralec-krilo {
+    fill: #ffffff;
+    stroke: var(--barva-primarna);
+    stroke-width: 1.4;
+    stroke-linejoin: round;
+}
+
+.jadralec-kabina {
+    fill: var(--barva-primarna);
+}
+
+/* // Visokokontrastne SVG in metrične prilagoditve za Svetli način */
+:root[data-theme="light"] .graf-vir-hitrosti,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-vir-hitrosti {
+    color: #0369a1;
+    background: #ffffff;
+    border-color: rgba(3, 105, 161, 0.32);
+}
+
+:root[data-theme="light"] .graf-tla-crta,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-tla-crta {
+    stroke: rgba(15, 23, 42, 0.25);
+}
+
+:root[data-theme="light"] .graf-varni-pas,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-varni-pas {
+    fill: #047857;
+}
+
+:root[data-theme="light"] .graf-varni-crta,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-varni-crta {
+    stroke: #047857;
+}
+
+:root[data-theme="light"] .graf-rezerva-pas,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-rezerva-pas {
+    fill: #b45309;
+}
+
+:root[data-theme="light"] .graf-preletena-pot,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-preletena-pot {
+    stroke: #b45309;
+}
+
+:root[data-theme="light"] .graf-rezerva-tekst,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-rezerva-tekst {
+    fill: #92400e;
+}
+
+:root[data-theme="light"] .graf-tla-varni,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-tla-varni {
+    fill: #065f46;
+}
+
+:root[data-theme="light"] .graf-tla-dotik,
+:root:not([data-theme]):has(#tema-stikalo:checked) .graf-tla-dotik {
+    fill: #92400e;
+}
+
+:root[data-theme="light"] .metrika-varni .metrika-vrednost,
+:root:not([data-theme]):has(#tema-stikalo:checked) .metrika-varni .metrika-vrednost {
+    color: #065f46;
+}
+
+:root[data-theme="light"] .metrika-cas .metrika-vrednost,
+:root:not([data-theme]):has(#tema-stikalo:checked) .metrika-cas .metrika-vrednost {
+    color: #92400e;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .graf-pot-crtkana,
+    .stres-napaka {
+        animation: none;
+    }
+}
+
+/* // Odzivne prilagoditve kalkulatorja za tablice in namizja */
+@media (min-width: 640px) {
+    .prednastavitve-seznam {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    #kalkulator-vsebnik {
+        padding: var(--razmik-lg);
+    }
+
+    .kalkulator-vnosna-mreza {
+        grid-template-columns: 1fr 1fr auto;
+    }
+
+    .vnos-namig {
+        min-height: 2.2em;
+    }
+
+    .vnos-gumb-sklop {
+        align-self: start;
+        margin-top: 1.9rem;
+    }
+
+    #gumb-izracunaj {
+        width: auto;
+        min-height: 50px;
+        white-space: nowrap;
+    }
+
+    .metrike-mreza {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tehnicni-povzetek {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tehnicni-podatek {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.15rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .prednastavitve-seznam {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }

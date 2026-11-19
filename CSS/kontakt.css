@@ -1,14 +1,40 @@
 /*
 //**********************************************************
 // Unikatni stili za podstran Kontakt (CSS/kontakt.css)    *
-// Dosledno oblikovana polja, oznake in stanje fokusa      *
+// Dosledno oblikovana polja, validacija in povratni odziv *
 //**********************************************************
 */
+
+:root {
+    --kontakt-polje-ozadje: var(--barva-povrsina);
+    --kontakt-polje-rob: var(--barva-rob);
+    --kontakt-izbira-rob: var(--barva-rob);
+    --kontakt-napaka-tekst: #fda4af;
+    --kontakt-uspeh-tekst: #34d399;
+}
+
+:root[data-theme="light"],
+:root:not([data-theme]):has(#tema-stikalo:checked) {
+    --kontakt-polje-ozadje: #f8fafc;
+    --kontakt-polje-rob: rgba(15, 23, 42, 0.24);
+    --kontakt-izbira-rob: rgba(15, 23, 42, 0.2);
+    --kontakt-napaka-tekst: #be123c;
+    --kontakt-uspeh-tekst: #065f46;
+}
 
 #kontakt-glavna-mreza {
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--razmik-xl);
+}
+
+#kontaktni-podatki,
+#obrazec-stik,
+#okvir-uradni-podatki,
+#sklop-osebni-podatki,
+#sklop-podrobnosti-povprasevanja {
+    min-width: 0;
+    max-width: 100%;
 }
 
 /* // 1. Seznam uradnih kontaktnih podatkov */
@@ -18,8 +44,8 @@
 
 #seznam-kontaktov {
     list-style: none;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--razmik-sm);
 }
 
@@ -27,14 +53,217 @@
 #kontakt-vrstica-lok,
 #kontakt-vrstica-mail,
 #kontakt-vrstica-tel {
-    padding: 0.75rem 1rem;
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    background: var(--kontakt-polje-ozadje);
+    border: 1px solid var(--barva-rob);
+    border-left: 3px solid var(--barva-primarna);
+    border-radius: var(--radij-sm);
+    color: var(--barva-besedilo-sekundarno);
+    overflow-wrap: anywhere;
+    transition: border-color var(--prehod), transform var(--prehod);
+}
+
+#kontakt-vrstica-org:hover,
+#kontakt-vrstica-lok:hover,
+#kontakt-vrstica-mail:hover,
+#kontakt-vrstica-tel:hover {
+    border-color: var(--barva-primarna);
+}
+
+#seznam-kontaktov a {
+    display: inline-block;
+    padding-block: 0.15rem;
+}
+
+:root[data-theme="light"] #seznam-kontaktov a,
+:root:not([data-theme]):has(#tema-stikalo:checked) #seznam-kontaktov a {
+    color: var(--barva-primarna-temna);
+}
+
+/* // 2. Povratne informacije obrazca (napake in potrditev) */
+#obrazec-povratna {
+    margin-bottom: var(--razmik-md);
+    scroll-margin-top: 5.5rem;
+}
+
+#obrazec-povratna[hidden] {
+    display: none;
+}
+
+#obrazec-povratna:focus {
+    outline: none;
+}
+
+#obrazec-povratna:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 4px;
+    border-radius: var(--radij-md);
+}
+
+.povratna-kartica {
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-left: 5px solid var(--barva-primarna);
+    border-radius: var(--radij-md);
+    padding: var(--razmik-md);
+    box-shadow: var(--senca-kartica);
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-sm);
+    animation: pojaviSe 0.3s ease-out both;
+    min-width: 0;
+}
+
+.povratna-kartica.povratna-napake {
+    background: rgba(244, 63, 94, 0.10);
+    border-color: rgba(244, 63, 94, 0.42);
+    border-left-color: var(--barva-napaka, #f43f5e);
+}
+
+.povratna-kartica.povratna-uspeh {
+    background: rgba(16, 185, 129, 0.09);
+    border-color: rgba(16, 185, 129, 0.42);
+    border-left-color: var(--barva-uspeh, #10b981);
+}
+
+.povratna-glava {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+}
+
+.povratna-znacka-uspeh {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.22rem 0.72rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--kontakt-uspeh-tekst);
+    background: rgba(16, 185, 129, 0.16);
+    border: 1px solid rgba(16, 185, 129, 0.42);
+}
+
+.povratna-naslov {
+    margin-bottom: 0;
+    font-size: 1.15rem;
+    color: var(--barva-besedilo);
+}
+
+.povratna-napake .povratna-naslov {
+    color: var(--kontakt-napaka-tekst);
+}
+
+.povratna-opis {
+    margin-bottom: 0;
+    font-size: 0.94rem;
+    color: var(--barva-besedilo);
+}
+
+.povratna-seznam-napak {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.povratna-skok-gumb {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.85rem;
+    text-align: left;
+    font-family: var(--pisava-osnovna);
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--barva-besedilo);
+    background: var(--barva-povrsina);
+    border: 1px solid rgba(244, 63, 94, 0.36);
+    border-radius: var(--radij-sm);
+    cursor: pointer;
+    overflow-wrap: anywhere;
+    transition: border-color var(--prehod), background-color var(--prehod), transform var(--prehod);
+}
+
+.povratna-skok-gumb:hover {
+    border-color: var(--barva-napaka, #f43f5e);
+    background: var(--barva-kartica);
+    transform: translateX(3px);
+}
+
+.povratna-skok-gumb:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 2px;
+}
+
+.povratna-opomba {
+    margin-bottom: 0;
+    padding: 0.72rem 0.9rem;
     background: var(--barva-povrsina);
     border: 1px solid var(--barva-rob);
     border-radius: var(--radij-sm);
-    color: var(--barva-besedilo-sekundarno);
+    font-size: 0.9rem;
+    color: var(--barva-besedilo);
 }
 
-/* // 2. Kontaktni obrazec in vnosna polja */
+.povzetek-podatkov {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.3rem 1rem;
+    padding: 0.85rem 1rem;
+    background: var(--barva-kartica);
+    border: 1px solid var(--barva-rob);
+    border-radius: var(--radij-sm);
+    min-width: 0;
+}
+
+.povzetek-oznaka {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--barva-besedilo-sekundarno);
+    padding-top: 0.35rem;
+}
+
+.povzetek-vrednost {
+    margin-left: 0;
+    padding-bottom: 0.45rem;
+    border-bottom: 1px solid var(--barva-rob);
+    color: var(--barva-besedilo);
+    font-weight: 600;
+    font-size: 0.95rem;
+    overflow-wrap: anywhere;
+}
+
+.povzetek-vrednost:last-of-type {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.povratna-akcije {
+    display: flex;
+    flex-direction: column;
+    gap: var(--razmik-sm);
+    padding-top: 0.25rem;
+}
+
+.gumb-mailto,
+.gumb-novo-sporocilo {
+    min-height: 44px;
+    text-align: center;
+}
+
+.gumb-mailto:hover,
+.gumb-mailto:visited {
+    color: #ffffff;
+}
+
+/* // 3. Kontaktni obrazec in vnosna polja */
 #glavni-kontaktni-obrazec {
     display: flex;
     flex-direction: column;
@@ -44,14 +273,22 @@
 #tabela-osebni-podatki {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#tabela-osebni-podatki tbody {
+    display: block;
+    width: 100%;
 }
 
 /* // Mobile-first: na ozkih zaslonih so oznake nad vnosnimi polji */
 #tabela-osebni-podatki tr {
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.4rem;
     margin-bottom: var(--razmik-md);
+    width: 100%;
+    min-width: 0;
 }
 
 #tabela-osebni-podatki tr:last-child {
@@ -61,6 +298,8 @@
 #tabela-osebni-podatki td {
     display: block;
     text-align: left;
+    min-width: 0;
+    max-width: 100%;
 }
 
 #ime-priimek,
@@ -69,19 +308,31 @@
 #razlog-stika,
 #sporocilo {
     width: 100%;
+    max-width: 100%;
+    min-height: 44px;
     padding: 0.78rem 1rem;
     font-family: var(--pisava-osnovna);
-    font-size: 0.95rem;
+    font-size: 1rem;
+    line-height: 1.5;
     color: var(--barva-besedilo);
-    background-color: var(--barva-povrsina);
-    border: 1px solid var(--barva-rob);
+    background-color: var(--kontakt-polje-ozadje);
+    border: 1px solid var(--kontakt-polje-rob);
     border-radius: var(--radij-sm);
+    scroll-margin-top: 5.5rem;
     transition: border-color var(--prehod), box-shadow var(--prehod), background-color var(--prehod);
+}
+
+#ime-priimek::placeholder,
+#eposta::placeholder,
+#telefon::placeholder,
+#sporocilo::placeholder {
+    color: var(--barva-besedilo-sekundarno);
+    opacity: 0.88;
 }
 
 #sporocilo {
     resize: vertical;
-    min-height: 140px;
+    min-height: 148px;
 }
 
 /* // Jasno vidno stanje fokusa (:focus in :focus-visible) */
@@ -95,6 +346,103 @@
     box-shadow: 0 0 0 4px var(--barva-fokus);
 }
 
+#ime-priimek:focus-visible,
+#eposta:focus-visible,
+#telefon:focus-visible,
+#razlog-stika:focus-visible,
+#sporocilo:focus-visible {
+    outline: 2px solid var(--barva-primarna);
+    outline-offset: 2px;
+}
+
+/* // Stanje napake in potrjenega veljavnega polja */
+#ime-priimek.polje-napaka,
+#eposta.polje-napaka,
+#telefon.polje-napaka,
+#razlog-stika.polje-napaka,
+#sporocilo.polje-napaka {
+    border-color: var(--barva-napaka, #f43f5e);
+    background-color: rgba(244, 63, 94, 0.06);
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.18);
+}
+
+#ime-priimek.polje-napaka:focus,
+#eposta.polje-napaka:focus,
+#telefon.polje-napaka:focus,
+#razlog-stika.polje-napaka:focus,
+#sporocilo.polje-napaka:focus {
+    border-color: var(--barva-napaka, #f43f5e);
+    box-shadow: 0 0 0 4px rgba(244, 63, 94, 0.28);
+}
+
+#ime-priimek.polje-napaka:focus-visible,
+#eposta.polje-napaka:focus-visible,
+#telefon.polje-napaka:focus-visible,
+#razlog-stika.polje-napaka:focus-visible,
+#sporocilo.polje-napaka:focus-visible {
+    outline-color: var(--barva-napaka, #f43f5e);
+}
+
+#ime-priimek.polje-veljavno,
+#eposta.polje-veljavno,
+#telefon.polje-veljavno,
+#razlog-stika.polje-veljavno,
+#sporocilo.polje-veljavno {
+    border-color: var(--barva-uspeh, #10b981);
+}
+
+#ime-priimek.polje-veljavno:focus,
+#eposta.polje-veljavno:focus,
+#telefon.polje-veljavno:focus,
+#razlog-stika.polje-veljavno:focus,
+#sporocilo.polje-veljavno:focus {
+    border-color: var(--barva-uspeh, #10b981);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22);
+}
+
+/* // Inline sporočilo o napaki pod posameznim poljem */
+.sporocilo-napake {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.42rem;
+    margin-top: 0.45rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--kontakt-napaka-tekst);
+    overflow-wrap: anywhere;
+    animation: pojaviSeNapaka 0.22s ease-out both;
+}
+
+.sporocilo-napake::before {
+    content: "\26A0";
+    flex-shrink: 0;
+    font-size: 0.95em;
+    line-height: 1.3;
+}
+
+/* // Števec znakov pod poljem za sporočilo */
+.stevec-znakov {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 0.42rem;
+    font-family: var(--pisava-mono);
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--barva-besedilo-sekundarno);
+    transition: color var(--prehod);
+}
+
+.stevec-znakov.stevec-veljaven {
+    color: var(--kontakt-uspeh-tekst);
+}
+
+.stevec-znakov.stevec-presezen {
+    color: var(--kontakt-napaka-tekst);
+}
+
 #labela-razlog,
 #labela-sporocilo,
 #naslov-izkusnje {
@@ -102,37 +450,65 @@
     margin-bottom: 0.45rem;
 }
 
+#odstavek-razlog,
+#odstavek-sporocilo {
+    margin-bottom: var(--razmik-md);
+}
+
+#odstavek-soglasje {
+    margin-bottom: 0;
+}
+
 /* // Radio gumbi in potrditveno polje */
 #odstavek-izkusnje {
     margin-bottom: var(--razmik-md);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.55rem;
 }
 
 .izbira-vrstica {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
-    padding: 0.6rem 0.85rem;
-    background: var(--barva-povrsina);
-    border: 1px solid var(--barva-rob);
+    gap: 0.72rem;
+    min-height: 44px;
+    padding: 0.65rem 0.9rem;
+    background: var(--kontakt-polje-ozadje);
+    border: 1px solid var(--kontakt-izbira-rob);
     border-radius: var(--radij-sm);
     cursor: pointer;
-    color: var(--barva-besedilo-sekundarno);
-    transition: border-color var(--prehod);
+    color: var(--barva-besedilo);
+    scroll-margin-top: 5.5rem;
+    transition: border-color var(--prehod), background-color var(--prehod), box-shadow var(--prehod);
 }
 
 .izbira-vrstica:hover {
     border-color: var(--barva-primarna);
 }
 
+.izbira-vrstica:has(input:focus-visible) {
+    border-color: var(--barva-primarna);
+    box-shadow: 0 0 0 3px var(--barva-fokus);
+}
+
+.izbira-vrstica.polje-napaka {
+    border-color: var(--barva-napaka, #f43f5e);
+    background: rgba(244, 63, 94, 0.08);
+    box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.16);
+}
+
+.izbira-vrstica.polje-veljavno {
+    border-color: var(--barva-uspeh, #10b981);
+}
+
 .izbira-vrstica input[type="radio"],
 .izbira-vrstica input[type="checkbox"] {
     accent-color: var(--barva-primarna);
-    width: 1.1rem;
-    height: 1.1rem;
+    width: 1.2rem;
+    height: 1.2rem;
+    flex-shrink: 0;
     cursor: pointer;
+    scroll-margin-top: 5.5rem;
 }
 
 .izbira-vrstica input:focus-visible {
@@ -142,16 +518,125 @@
 
 #sklop-gumbov-obrazca {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: var(--razmik-sm);
     margin-bottom: 0;
 }
 
+#gumb-oddaj,
+#gumb-pocisti {
+    min-height: 44px;
+    width: 100%;
+}
+
+#gumb-oddaj:focus-visible,
+#gumb-pocisti:focus-visible,
+.gumb-mailto:focus-visible,
+.gumb-novo-sporocilo:focus-visible {
+    outline: 3px solid var(--barva-primarna);
+    outline-offset: 3px;
+}
+
+/* // 4. Dodatni kontrasti za Svetli način (Light Mode) */
+:root[data-theme="light"] .povratna-kartica.povratna-napake,
+:root:not([data-theme]):has(#tema-stikalo:checked) .povratna-kartica.povratna-napake {
+    background: rgba(225, 29, 72, 0.06);
+    border-color: rgba(225, 29, 72, 0.35);
+    border-left-color: var(--barva-napaka, #e11d48);
+}
+
+:root[data-theme="light"] .povratna-skok-gumb,
+:root:not([data-theme]):has(#tema-stikalo:checked) .povratna-skok-gumb {
+    background: #ffffff;
+    border-color: rgba(225, 29, 72, 0.32);
+}
+
+:root[data-theme="light"] .povratna-kartica.povratna-uspeh,
+:root:not([data-theme]):has(#tema-stikalo:checked) .povratna-kartica.povratna-uspeh {
+    background: rgba(5, 150, 105, 0.06);
+    border-color: rgba(5, 150, 105, 0.35);
+    border-left-color: var(--barva-uspeh, #059669);
+}
+
+:root[data-theme="light"] .povratna-znacka-uspeh,
+:root:not([data-theme]):has(#tema-stikalo:checked) .povratna-znacka-uspeh {
+    background: rgba(5, 150, 105, 0.12);
+    border-color: rgba(5, 150, 105, 0.36);
+}
+
+/* // 5. Animacija za inline opozorila in zmanjšano gibanje */
+@keyframes pojaviSeNapaka {
+    from {
+        opacity: 0;
+        transform: translateY(-3px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .povratna-kartica,
+    .sporocilo-napake {
+        animation: none;
+    }
+
+    #kontakt-vrstica-org,
+    #kontakt-vrstica-lok,
+    #kontakt-vrstica-mail,
+    #kontakt-vrstica-tel,
+    .povratna-skok-gumb,
+    #ime-priimek,
+    #eposta,
+    #telefon,
+    #razlog-stika,
+    #sporocilo,
+    .izbira-vrstica,
+    .stevec-znakov {
+        transition: none;
+    }
+}
+
+/* // 6. Odzivne prilagoditve za širše zaslone */
+@media (min-width: 560px) {
+    .povratna-akcije,
+    #sklop-gumbov-obrazca {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    #gumb-oddaj,
+    #gumb-pocisti {
+        width: auto;
+    }
+}
+
+@media (min-width: 640px) {
+    .povzetek-podatkov {
+        grid-template-columns: 190px 1fr;
+        align-items: baseline;
+    }
+
+    .povzetek-oznaka {
+        padding-top: 0;
+    }
+
+    .povzetek-vrednost {
+        padding-bottom: 0.4rem;
+    }
+}
+
 @media (min-width: 768px) {
+    #seznam-kontaktov {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     #tabela-osebni-podatki tr {
         display: grid;
         grid-template-columns: 210px 1fr;
-        align-items: center;
+        align-items: start;
         gap: var(--razmik-md);
     }
 
@@ -159,5 +644,6 @@
     #celica-labela-eposta,
     #celica-labela-telefon {
         text-align: right;
+        padding-top: 0.78rem;
     }
 }

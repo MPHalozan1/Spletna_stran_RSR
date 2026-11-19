@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="CSS/style.css">
     <!-- // Unikatna CSS datoteka za podstran Kontakt -->
     <link rel="stylesheet" href="CSS/kontakt.css">
+    <!-- // Skupna JS skripta za temo in navigacijo -->
+    <script src="JS/common.js"></script>
+    <!-- // Unikatna JS skripta za preverjanje in povratne informacije obrazca -->
+    <script src="JS/kontakt.js" defer></script>
 </head>
 <body>
 
@@ -49,6 +53,7 @@
                 <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
                 <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                 <li><a href="kontakt.html" aria-current="page" class="aktiven">Kontakt in vpis</a></li>
+                <li><a href="simulator.html">Simulator</a></li>
             </ul>
         </div>
     </nav>
@@ -94,6 +99,7 @@
         <section id="obrazec-stik">
             <h2 id="naslov-obrazec">2. Kontaktni obrazec</h2>
             <p id="navodilo-zvezdica">Polja, označena z zvezdico (<strong>*</strong>), so obvezna za oddajo obrazca.</p>
+            <div id="obrazec-povratna" class="obrazec-povratna" aria-live="polite" hidden></div>
 
             <form id="glavni-kontaktni-obrazec" action="#" method="post">
 
@@ -223,6 +229,7 @@
                     <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
                     <li><a href="informacije.html">Praktične informacije in urnik</a></li>
                     <li><a href="kontakt.html" aria-current="page" class="aktiven">Kontakt in vpis</a></li>
+                    <li><a href="simulator.html">Simulator</a></li>
                 </ul>
             </nav>
             <p class="noga-avtorske">

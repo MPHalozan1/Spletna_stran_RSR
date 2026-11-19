@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Interaktivni simulator jadralnega letenja in vzleta z vitlom na letališču Moškanjci pri Ptuju.">
+    <meta name="author" content="Miha Plajnšek">
+    <title>RC Modelarstvo Ptuj – Simulator jadralnega letenja</title>
+    <!-- // Skupna CSS datoteka -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <!-- // Unikatna CSS datoteka za podstran Simulator -->
+    <link rel="stylesheet" href="CSS/simulator.css">
+    <!-- // Skupna tema in navigacija (sinhrono pred prvim izrisom) -->
+    <script src="JS/common.js"></script>
+    <!-- // Logika in fizika simulatorja letenja -->
+    <script src="JS/simulator.js" defer></script>
+</head>
+<body>
+
+    <!--
+    //**********************************************************
+    // Pripeta zgornja vrstica (Sticky Top Bar):               *
+    // Rumeni napis trenutne strani, Pure-CSS DDL meni in tema *
+    //**********************************************************
+    -->
+    <nav class="pripeta-vrstica" aria-label="Glavna navigacija">
+        <div class="vsebnik pripeta-notranjost">
+            <!-- // Rumeni napis, ki je vedno pripet na vrhu in kaže trenutno stran -->
+            <span class="znacka-sekcije">&#9992; Stran: <strong>Simulator</strong></span>
+
+            <div class="pripeta-kontrole">
+                <!-- // Pure-CSS DDL (spustni meni) za mobilne zaslone brez JS -->
+                <input type="checkbox" id="meni-ddl-stikalo" class="skrit-checkbox" aria-label="Odpri navigacijski meni">
+                <label for="meni-ddl-stikalo" class="meni-ddl-gumb">
+                    <span class="ddl-tekst">Meni</span>
+                    <span class="ddl-puscica" aria-hidden="true">&#9662;</span>
+                </label>
+
+                <!-- // Pure-CSS Light/Dark stikalo -->
+                <div class="tema-preklopnik">
+                    <input type="checkbox" id="tema-stikalo" class="skrit-checkbox" aria-label="Preklopi med temnim in svetlim načinom">
+                    <label for="tema-stikalo" class="tema-oznaka" title="Preklopi svetli / temni način">
+                        <span class="tema-ikona" aria-hidden="true">&#127769;</span>
+                        <span class="tema-ikona" aria-hidden="true">&#9728;&#65039;</span>
+                        <span class="tema-kroglica"></span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- // Navigacijske povezave -->
+            <ul class="nav-seznam">
+                <li><a href="index.html">Domov</a></li>
+                <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                <li><a href="simulator.html" aria-current="page" class="aktiven">Simulator</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!--
+    //**********************************************************
+    // Glava strani z naslovom (se normalno odrola ob drsenju) *
+    //**********************************************************
+    -->
+    <header class="glava-strani">
+        <div class="vsebnik glava-vrstica">
+            <div class="glava-naslovni-del">
+                <h1 id="simulator-glavni-naslov">&#9992; Simulator jadralnega letenja – Moškanjci</h1>
+                <p id="simulator-podnaslov" class="glava-podnaslov"><em>Preizkusite vzlet z vitlom, jadranje v toplih termičnih tokovih nad Halozami in Ptujem ter mehak pristanek na domači stezi.</em></p>
+            </div>
+        </div>
+    </header>
+
+    <!--
+    //**********************************************************
+    // Glavna vsebina simulatorja (simulator.html)             *
+    //**********************************************************
+    -->
+    <main class="vsebnik" id="simulator-vsebina">
+
+        <!-- // 1. SKLOP: Nastavitve poleta (izbor letala, vremena, zvoka in hiter nov vzlet) -->
+        <section id="nastavitve-simulatorja" aria-label="Nastavitve simulatorja">
+            <div id="nastavitve-mreza">
+                <div class="nastavitev-skupina">
+                    <label for="izbira-letala" class="nastavitev-oznaka">Zrakoplov</label>
+                    <select id="izbira-letala" class="nastavitev-izbira">
+                        <option value="solsko" selected>Šolsko jadralno letalo</option>
+                        <option value="tekmovalno">Tekmovalno jadralno letalo</option>
+                        <option value="rc">RC jadralni model</option>
+                    </select>
+                </div>
+
+                <div class="nastavitev-skupina">
+                    <span class="nastavitev-oznaka" id="oznaka-vreme">Vremenske razmere</span>
+                    <div class="vreme-gumbi" role="group" aria-labelledby="oznaka-vreme">
+                        <button type="button" class="vreme-gumb" data-vreme="mirno" aria-pressed="false">Mirno</button>
+                        <button type="button" class="vreme-gumb aktiven" data-vreme="termicno" aria-pressed="true">Termično</button>
+                        <button type="button" class="vreme-gumb" data-vreme="zahtevno" aria-pressed="false">Zahtevno</button>
+                    </div>
+                </div>
+
+                <div class="nastavitev-akcije">
+                    <button type="button" id="gumb-zvok-vario" class="gumb-sekundarni gumb-kompakten" aria-pressed="false">
+                        Zvok variometra: Izključen
+                    </button>
+                    <button type="button" id="gumb-hitri-restart" class="gumb-primarni gumb-kompakten">
+                        Nov vzlet
+                    </button>
+                </div>
+            </div>
+
+            <!-- // Izbor ciljne hitrosti (trim) in fina nastavitev -->
+            <div id="trim-sklop">
+                <div class="trim-glava">
+                    <span class="nastavitev-oznaka" id="oznaka-trim">Izbor hitrosti (trim)</span>
+                    <span id="trim-rezim-oznaka" class="status-znacka trim-znacka">Najboljši dolet</span>
+                </div>
+
+                <div class="trim-kontrole">
+                    <div id="trim-gumbi" role="group" aria-labelledby="oznaka-trim">
+                        <button type="button" class="trim-gumb" data-rezim="min_spust" aria-pressed="false" title="Najmanjše spuščanje za kroženje v termiki (tipka 1)">
+                            1 · Min. spuščanje (68 km/h)
+                        </button>
+                        <button type="button" class="trim-gumb aktiven" data-rezim="najboljsi_dolet" aria-pressed="true" title="Največja finesa za najboljši dolet (tipka 2)">
+                            2 · Najboljši dolet (90 km/h)
+                        </button>
+                        <button type="button" class="trim-gumb" data-rezim="hitri_prelet" aria-pressed="false" title="Povečana hitrost za hiter prelet spusta (tipka 3)">
+                            3 · Hitri prelet (128 km/h)
+                        </button>
+                    </div>
+
+                    <div class="trim-fino-skupina" role="group" aria-label="Fina nastavitev ciljne hitrosti">
+                        <button type="button" id="trim-minus" class="trim-fino-gumb" title="Trim -2 km/h (tipka - ali [)" aria-label="Trim -2 km/h">-</button>
+                        <span id="trim-cilj-vrednost" class="trim-fino-vrednost" aria-live="polite">90 km/h</span>
+                        <button type="button" id="trim-plus" class="trim-fino-gumb" title="Trim +2 km/h (tipka + ali ])" aria-label="Trim +2 km/h">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- // 2. SKLOP: Kokpit instrumenti (HUD) in igralno platno -->
+        <section id="kokpit-sekcija" aria-label="Letalski instrumenti in prikaz poleta">
+            <div id="kokpit-hud" role="region" aria-label="Instrumentna plošča">
+                <div class="hud-celica hud-celica-visina">
+                    <span class="hud-naslov">Višina</span>
+                    <strong id="hud-visina" class="hud-vrednost">0 m</strong>
+                </div>
+
+                <div class="hud-celica hud-celica-hitrost">
+                    <div class="hud-vario-glava">
+                        <span class="hud-naslov">Hitrost</span>
+                        <span id="hud-cilj-hitrost" class="hud-cilj-oznaka">Cilj: 90 km/h</span>
+                    </div>
+                    <strong id="hud-hitrost" class="hud-vrednost">0 km/h</strong>
+                    <div id="hitrost-trak" role="img" aria-label="Merilnik hitrosti z območjem prevleka, mejami režimov, ciljem trima in trenutno hitrostjo">
+                        <div id="hitrost-prevlek-cona"></div>
+                        <div id="hitrost-polnilo"></div>
+                        <span id="hitrost-oznaka-min" class="hitrost-meja hitrost-meja-min" title="Min. spuščanje"></span>
+                        <span id="hitrost-oznaka-best" class="hitrost-meja hitrost-meja-best" title="Najboljši dolet"></span>
+                        <span id="hitrost-oznaka-hitri" class="hitrost-meja hitrost-meja-hitri" title="Hitri prelet"></span>
+                        <span id="hitrost-cilj-oznaka" title="Ciljna hitrost trima"></span>
+                        <span id="hitrost-trenutna-oznaka" title="Trenutna hitrost"></span>
+                    </div>
+                    <div id="hud-polara" class="hud-polara">Polara: 0,0 m/s · L/D —</div>
+                </div>
+
+                <div class="hud-celica hud-celica-vario">
+                    <div class="hud-vario-glava">
+                        <span class="hud-naslov">Variometer</span>
+                        <strong id="hud-vario" class="hud-vrednost">0,0 m/s</strong>
+                    </div>
+                    <div id="vario-trak" aria-hidden="true">
+                        <div class="vario-polovica vario-polovica-leva">
+                            <div id="vario-spust"></div>
+                        </div>
+                        <div class="vario-sredina"></div>
+                        <div class="vario-polovica vario-polovica-desna">
+                            <div id="vario-dvig"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hud-celica">
+                    <div class="hud-vario-glava">
+                        <span class="hud-naslov">Napetost zajle</span>
+                        <strong id="hud-zajla" class="hud-vrednost">0 %</strong>
+                    </div>
+                    <div id="zajla-trak" aria-hidden="true">
+                        <div id="zajla-merilnik"></div>
+                    </div>
+                </div>
+
+                <div class="hud-celica">
+                    <span class="hud-naslov">Zračna masa</span>
+                    <span id="hud-zracna-masa" class="status-znacka zracna-miren">Miren zrak</span>
+                </div>
+
+                <div class="hud-celica hud-celica-stanje">
+                    <span class="hud-naslov">Stanje leta</span>
+                    <div class="hud-stanje-znacke">
+                        <span id="hud-faza" class="status-znacka faza-znacka">Na stezi</span>
+                        <span id="hud-zavore" class="status-znacka zavore-znacka">Zračne zavore: Zaprte</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- // Prizorišče poleta s prekrivnimi obvestili in povzetkom pristanka -->
+            <div id="platno-ovoj">
+                <canvas id="simulator-platno" aria-label="Interaktivni simulator jadralnega letenja na letališču Moškanjci"></canvas>
+
+                <!-- // Opozorilo ob prevlečenem letu (stall alert) -->
+                <div id="opozorilo-prevlek" class="skrito" role="alert" aria-live="assertive">
+                    POZOR: PREVLEČEN LET!
+                </div>
+
+                <!-- // Prehodni nasveti in obvestila med letom -->
+                <div id="pasica-nasvet" class="skrito" role="status" aria-live="polite"></div>
+
+                <!-- // Povzetek pristanka (skrit do zaključka kotaljenja na stezi) -->
+                <div id="povzetek-pristanka" class="skrito" role="dialog" aria-labelledby="pristanek-naslov">
+                    <div id="povzetek-kartica">
+                        <span class="povzetek-nadnaslov">Zaključek poleta · Letališče Moškanjci</span>
+                        <h3 id="pristanek-naslov">Pristanek zaključen</h3>
+                        <p id="pristanek-ocena">Varen pristanek</p>
+
+                        <div id="povzetek-metrike">
+                            <div class="metrika-element">
+                                <span class="metrika-oznaka">Največja višina</span>
+                                <strong id="rezultat-visina" class="metrika-stevilo">0 m</strong>
+                            </div>
+                            <div class="metrika-element">
+                                <span class="metrika-oznaka">Čas leta</span>
+                                <strong id="rezultat-cas" class="metrika-stevilo">00:00</strong>
+                            </div>
+                            <div class="metrika-element">
+                                <span class="metrika-oznaka">Preletena razdalja</span>
+                                <strong id="rezultat-razdalja" class="metrika-stevilo">0,00 km</strong>
+                            </div>
+                            <div class="metrika-element">
+                                <span class="metrika-oznaka">Ujeti topli tokovi</span>
+                                <strong id="rezultat-termike" class="metrika-stevilo">0</strong>
+                            </div>
+                        </div>
+
+                        <p id="rezultat-podrobnosti"></p>
+
+                        <button type="button" id="gumb-overlay-restart" class="gumb-primarni">Nov vzlet</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- // 3. SKLOP: Gumbi za upravljanje na dotik in klik neposredno pod platnom -->
+            <div id="nadzorna-plosca" role="group" aria-label="Gumbi za upravljanje letala">
+                <button type="button" id="ctrl-vitel" class="ctrl-gumb ctrl-vitel">Vzlet z vitlom (Preslednica)</button>
+                <button type="button" id="ctrl-gor" class="ctrl-gumb">Nos gor (W / &#8593;)</button>
+                <button type="button" id="ctrl-dol" class="ctrl-gumb">Nos dol (S / &#8595;)</button>
+                <button type="button" id="ctrl-odpni" class="ctrl-gumb">Odpni zajlo (R)</button>
+                <button type="button" id="ctrl-zavore" class="ctrl-gumb ctrl-preklop" aria-pressed="false">Zračne zavore (B)</button>
+                <button type="button" id="ctrl-restart" class="ctrl-gumb ctrl-restart">Nov vzlet</button>
+            </div>
+        </section>
+
+        <!-- // 4. SKLOP: Kratka slovenska legenda za razumevanje simulatorja -->
+        <section id="legenda-simulatorja" aria-labelledby="naslov-legenda">
+            <h2 id="naslov-legenda">Navodila in legenda letalskih pojavov</h2>
+            <div id="legenda-mreza">
+                <article class="legenda-kartica">
+                    <h3>Upravljanje in tipke</h3>
+                    <p>
+                        Za zagon vleke držite <strong>Preslednico</strong> ali gumb <em>Vzlet z vitlom</em>. Nagib letala upravljate z
+                        <strong>W / &#8593;</strong> (nos gor) in <strong>S / &#8595;</strong> (nos dol). Zajlo odpnete s tipko
+                        <strong>R</strong>, zračne zavore preklopite s tipko <strong>B</strong>, hitrost trima pa nastavljate s
+                        <strong>1 / 2 / 3</strong> ter <strong>- / +</strong> (ali <strong>[ / ]</strong>).
+                    </p>
+                </article>
+
+                <article class="legenda-kartica">
+                    <h3>Vzlet z vitlom</h3>
+                    <p>
+                        Jeklena zajla povezuje letalo in vlečni vitel na koncu steze. Med vzpenjanjem uravnavajte nagib in hitrost:
+                        prestrmo dviganje poviša napetost nad 85 %, pri 100 % pa se sproži varnostni odklop. Ob odklopu zajla s
+                        svetlo oranžnim zavornim padalcem varno pade na travnik.
+                    </p>
+                </article>
+
+                <article class="legenda-kartica legenda-toplo">
+                    <h3>Topli tokovi (termika)</h3>
+                    <p>
+                        Zlato-oranžni dvigajoči se zračni stebri pod belimi kumulusnimi oblaki. Ob vletu se variometer obrne v
+                        pozitivno smer (<strong>m/s &#8593;</strong>), zračna masa se obarva v <strong>Topli tok &#8593;</strong>,
+                        jadralno letalo pa brez motorja pridobiva višino.
+                    </p>
+                </article>
+
+                <article class="legenda-kartica legenda-hladno">
+                    <h3>Hladni tokovi (spustni tokovi)</h3>
+                    <p>
+                        Hladnejši modrikasti zračni tokovi pod senčnimi oblaki vlečejo letalo navzdol (<strong>Hladni tok &#8595;</strong>).
+                        Takrat izberite režim <strong>Hitri prelet (3)</strong> ali rahlo potisnite nos navzdol (<strong>S / &#8595;</strong>),
+                        da območje spuščanja čim hitreje preletite.
+                    </p>
+                </article>
+
+                <article class="legenda-kartica legenda-trim">
+                    <h3>Izbor hitrosti (trim) in izmenjava energije</h3>
+                    <p>
+                        Jadralno letalo brez motorja nenehno izmenjuje višino in hitrost: potisk nosu navzdol (<strong>S / &#8595;</strong>)
+                        pretvori višino v pospešek, dvig nosu (<strong>W / &#8593;</strong>) pa hitrost pretvori v pridobitev višine do meje
+                        prevleka. Ko palico spustite, vzdolžni trim samodejno uravna letalo na izbrano ciljno hitrost:
+                    </p>
+                    <ul class="legenda-seznam-trim">
+                        <li><strong>1 · Min. spuščanje:</strong> Najmanjše lastno spuščanje za čim večji izkoristek toplih termičnih tokov.</li>
+                        <li><strong>2 · Najboljši dolet:</strong> Hitrost največje finese (<strong>L/D</strong>) za najdaljši prelet v mirnem zraku.</li>
+                        <li><strong>3 · Hitri prelet:</strong> Višja potovalna hitrost za hiter prehod skozi hladne spustne tokove.</li>
+                        <li><strong>Ročni trim (- / +):</strong> Fino prilagajanje ciljne hitrosti po <strong>2 km/h</strong> z živim prikazom polare in finese.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+    </main>
+
+    <!--
+    //**********************************************************
+    // Noga spletne strani s spodnjo (footer) navigacijo       *
+    //**********************************************************
+    -->
+    <footer class="noga-strani">
+        <div class="vsebnik noga-notranjost">
+            <nav class="noga-navigacija" aria-label="Spodnja navigacija">
+                <ul class="noga-seznam">
+                    <li><a href="index.html">Domov</a></li>
+                    <li><a href="dejavnost.html">Podrobnosti o dejavnosti</a></li>
+                    <li><a href="informacije.html">Praktične informacije in urnik</a></li>
+                    <li><a href="kontakt.html">Kontakt in vpis</a></li>
+                    <li><a href="simulator.html" aria-current="page" class="aktiven">Simulator</a></li>
+                </ul>
+            </nav>
+            <p class="noga-avtorske">
+                <small>&copy; 2026 Modelarska sekcija Aerokluba Ptuj | Avtor: Miha Plajnšek | <a href="kontakt.html">Stopite v stik z nami</a></small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
